@@ -5,13 +5,13 @@
  * report any bug to andrecasa91@gmail.com.
  **/
 
-#include <Error.h>
+#include <TrainingTools/Error.h>
+#include <TrainingTools/components/IterativeDescend.h>
 #include <iostream>
 #include <math.h>
-#include <trainers/Commons.h>
-#include <trainers/components/IterativeDescend.h>
+#include <memory>
 
-namespace EFG::train {
+namespace train {
 void IterativeDescend::setWeightsTollerance(const float value) {
   if (value < 0.f) {
     throw Error("Negative tollerance value");
@@ -26,12 +26,12 @@ void IterativeDescend::setGradientTollerance(const float value) {
   this->gradientTollerance = value;
 };
 
-float l1Norm(const Vect &v) {
-  float res = 0.f;
-  const float *data = v.data();
+double l1Norm(const Vect &v) {
+  double res = 0.f;
+  const double *data = v.data();
   for (std::size_t k = 0; k < v.size(); ++k) {
-    if (fabs(data[k]) > res) {
-      res = fabs(data[k]);
+    if (abs(data[k]) > res) {
+      res = abs(data[k]);
     }
   }
   return res;
@@ -58,10 +58,9 @@ private:
   std::chrono::milliseconds &cumulatedTime;
 };
 
-void IterativeDescend::train(Trainable &model, TrainSetPtr trainSet) {
+void IterativeDescend::train(Trainable &model) {
   this->elapsed = std::chrono::milliseconds(0);
-  this->model = &model;
-  this->resetTrainSet(trainSet);
+  this->setModel(model);
   this->reset();
   std::unique_ptr<Vect> wOld =
       std::make_unique<Vect>(this->model->getWeights());
@@ -87,14 +86,14 @@ void IterativeDescend::train(Trainable &model, TrainSetPtr trainSet) {
 }
 
 void IterativeDescend::update() {
-  ++this->doneIterations;
-  this->lastWeights = this->model->getWeights();
-  this->lastGrad = this->getGradient();
+  this->incrementIterations();
+  this->updateWeights(getModel().getParameters());
+  this->updateGradient(getModel().getGradient());
 };
 
 void IterativeDescend::reset() {
-  this->doneIterations = 1;
-  this->lastWeights = this->model->getWeights();
-  this->lastGrad = this->getGradient();
+  this->resetIterations();
+  this->updateWeights(getModel().getParameters());
+  this->updateGradient(getModel().getGradient());
 };
-} // namespace EFG::train
+} // namespace train

@@ -23,6 +23,8 @@ public:
   std::size_t getIterations() const { return doneIterations; };
   void resetIterations() { doneIterations = 1; };
 
+  void incrementIterations() { ++doneIterations; };
+
 protected:
   IterationsAware() = default;
 

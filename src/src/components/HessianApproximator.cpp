@@ -5,18 +5,18 @@
  * report any bug to andrecasa91@gmail.com.
  **/
 
-#include <trainers/Commons.h>
-#include <trainers/components/HessianApproximator.h>
+#include <TrainingTools/components/HessianApproximator.h>
 
-namespace EFG::train {
+namespace train {
 void HessianApproximator::update() {
-  this->updateInvHessian(this->model->getWeights() - this->lastWeights,
-                         this->getGradient() - this->lastGrad);
+  this->updateInvHessian(getModel().getParameters() - getLastWeights(),
+                         getModel().getGradient() - getLastGrad());
 }
 
 void HessianApproximator::reset() {
-  std::size_t size = this->model->getWeights().size();
+  Eigen::Index size =
+      static_cast<Eigen::Index>(getModel().getParameters().size());
   this->invHessianApprox = Matr(size);
-  this->invHessianApprox.addIdentity();
+  this->invHessianApprox += Eigen::MatrixXd::Identity(size, size);
 }
-} // namespace EFG::train
+} // namespace train
