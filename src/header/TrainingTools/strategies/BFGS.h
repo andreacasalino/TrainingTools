@@ -7,9 +7,9 @@
 
 #pragma once
 
-#include <trainers/components/HessianApproximator.h>
+#include <TrainingTools/components/HessianApproximator.h>
 
-namespace EFG::train {
+namespace train {
 /**
  * @brief The BFGS approach is used, as described here <a href="linkURL">
  * https://machinelearningmastery.com/bfgs-optimization-in-python/ </a>
@@ -19,4 +19,4 @@ private:
   void updateInvHessian(const Vect &deltaWeight,
                         const Vect &deltaGrad) override;
 };
-} // namespace EFG::train
+} // namespace train

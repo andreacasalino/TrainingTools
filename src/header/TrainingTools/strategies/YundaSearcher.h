@@ -7,10 +7,10 @@
 
 #pragma once
 
-#include <trainers/components/IterationsAware.h>
-#include <trainers/components/LineSearcher.h>
+#include <TrainingTools/components/IterationsAware.h>
+#include <TrainingTools/components/LineSearcher.h>
 
-namespace EFG::train {
+namespace train {
 /**
  * @brief The approach described here
  * http://www.optimization-online.org/DB_FILE/2016/07/5560.pdf (Algorithm A) is
@@ -22,4 +22,4 @@ protected:
 
   float computeC1() const;
 };
-} // namespace EFG::train
+} // namespace train
