@@ -5,26 +5,26 @@
  * report any bug to andrecasa91@gmail.com.
  **/
 
-#ifndef EFG_TRAINER_UPDATABLE_H
-#define EFG_TRAINER_UPDATABLE_H
+#pragma once
 
-#include <Component.h>
+namespace train {
+/**
+ * @brief an object that is updated at every iteration
+ */
+class Updatable {
+public:
+  virtual ~Updatable() = default;
 
-namespace EFG::train {
-    /**
-     * @brief an object that is updated at every iteration
-     */
-    class Updatable : virtual public Component {
-    protected:
-        /**
-         * @brief called at every iteration
-         */
-        virtual void update() = 0;
-        /**
-         * @brief called before starting a new training process to clean up
-         */
-        virtual void reset() = 0;
-    };
-}
+protected:
+  Updatable() = default;
 
-#endif
+  /**
+   * @brief called at every iteration
+   */
+  virtual void update() = 0;
+  /**
+   * @brief called before starting a new training process to clean up
+   */
+  virtual void reset() = 0;
+};
+} // namespace train

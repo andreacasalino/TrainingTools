@@ -5,8 +5,7 @@
  * report any bug to andrecasa91@gmail.com.
  **/
 
-#ifndef EFG_TRAINER_BFGS_H
-#define EFG_TRAINER_BFGS_H
+#pragma once
 
 #include <trainers/components/HessianApproximator.h>
 
@@ -21,5 +20,3 @@ private:
                         const Vect &deltaGrad) override;
 };
 } // namespace EFG::train
-
-#endif

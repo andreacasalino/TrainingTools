@@ -5,12 +5,9 @@
 // * report any bug to andrecasa91@gmail.com.
 // **/
 //
-//#ifndef EFG_TRAINER_LBFGS_H
-//#define EFG_TRAINER_LBFGS_H
+// #pragma once
 //
 //#include <trainers/components/HessianApproximator.h>
 //#include <Error.h>
 //
 // todo
-//
-//#endif

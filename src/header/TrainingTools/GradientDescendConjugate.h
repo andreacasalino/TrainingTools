@@ -5,8 +5,7 @@
  * report any bug to andrecasa91@gmail.com.
  **/
 
-#ifndef EFG_TRAINER_CONJUGATE_GRADIENT_H
-#define EFG_TRAINER_CONJUGATE_GRADIENT_H
+#pragma once
 
 #include <trainers/components/IterativeDescend.h>
 #include <trainers/strategies/BasicTrainSet.h>
@@ -82,5 +81,3 @@ protected:
   };
 };
 } // namespace EFG::train
-
-#endif

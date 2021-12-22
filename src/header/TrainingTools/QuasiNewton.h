@@ -5,8 +5,7 @@
  * report any bug to andrecasa91@gmail.com.
  **/
 
-#ifndef EFG_TRAINER_QUASI_NEWTON_H
-#define EFG_TRAINER_QUASI_NEWTON_H
+#pragma once
 
 #include <trainers/Commons.h>
 #include <trainers/components/IterativeDescend.h>
@@ -50,5 +49,3 @@ protected:
   };
 };
 } // namespace EFG::train
-
-#endif

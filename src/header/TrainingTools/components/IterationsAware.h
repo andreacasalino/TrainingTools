@@ -5,26 +5,29 @@
  * report any bug to andrecasa91@gmail.com.
  **/
 
-#ifndef EFG_TRAINER_ITERATIONS_AWARE_H
-#define EFG_TRAINER_ITERATIONS_AWARE_H
+#pragma once
 
-#include <Component.h>
 #include <cstdlib>
 
-namespace EFG::train {
-    class IterationsAware 
-        : virtual public Component {
-    public:
-        /**
-         * @param the maximum number of iterations allowed to search the optimum
-         * @throw in case the passed number of interations is too low
-         */
-        void setMaxIterations(const std::size_t iter);
+namespace train {
+class IterationsAware {
+public:
+  virtual ~IterationsAware() = default;
 
-    protected:
-        std::size_t maxIterations = 100;
-        std::size_t doneIterations = 1;
-    };
-}
+  /**
+   * @param the maximum number of iterations allowed to search the optimum
+   * @throw in case the passed number of interations is too low
+   */
+  void setMaxIterations(const std::size_t iter);
 
-#endif
+  std::size_t getIterations() const { return doneIterations; };
+  void resetIterations() { doneIterations = 1; };
+
+protected:
+  IterationsAware() = default;
+
+private:
+  std::size_t maxIterations = 100;
+  std::size_t doneIterations = 1;
+};
+} // namespace train

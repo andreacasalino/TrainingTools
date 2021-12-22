@@ -5,8 +5,7 @@
  * report any bug to andrecasa91@gmail.com.
  **/
 
-#ifndef EFG_TRAIN_YUNDA_SEARCHER_H
-#define EFG_TRAIN_YUNDA_SEARCHER_H
+#pragma once
 
 #include <trainers/components/IterationsAware.h>
 #include <trainers/components/LineSearcher.h>
@@ -24,5 +23,3 @@ protected:
   float computeC1() const;
 };
 } // namespace EFG::train
-
-#endif
