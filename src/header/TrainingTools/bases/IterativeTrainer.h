@@ -7,10 +7,10 @@
 
 #pragma once
 
-#include <TrainingTools/components/IterationsAware.h>
-#include <TrainingTools/components/TrainableAware.h>
-#include <TrainingTools/components/Trainer.h>
-#include <TrainingTools/components/Updatable.h>
+#include <TrainingTools/interfaces/IterationsAware.h>
+#include <TrainingTools/interfaces/TrainableAware.h>
+#include <TrainingTools/interfaces/Trainer.h>
+#include <TrainingTools/interfaces/Updatable.h>
 #include <chrono>
 
 namespace train {
@@ -21,7 +21,7 @@ namespace train {
     - the l1 of the difference between the old values of the weights and the new
  ones is below a certain threshold
  */
-class IterativeDescend : public Trainer,
+class IterativeTrainer : public Trainer,
                          public virtual ModelAware,
                          public virtual IterationsAware,
                          public virtual Updatable {
@@ -34,14 +34,14 @@ public:
    * @param the minimum l1 norm acceptable value
    * @throw when the passed value is negative
    */
-  void setWeightsTollerance(const float value);
+  void setWeightsTollerance(const double value);
   /**
    * @brief Set the threshold to consider for the gradient
    * in order to decide whether to arrest the iterations or not.
    * @param the minimum l1 norm acceptable value
    * @throw when the passed value is negative
    */
-  void setGradientTollerance(const float value);
+  void setGradientTollerance(const double value);
 
   /**
    * @brief Display in the console the advancement.
@@ -71,8 +71,8 @@ protected:
   void reset() override;
 
 private:
-  float weightsTollerance = 0.005f;
-  float gradientTollerance = 0.005f;
+  double weightsTollerance = 0.005f;
+  double gradientTollerance = 0.005f;
   bool printAdvnc = false;
   std::chrono::milliseconds elapsed = std::chrono::milliseconds(0);
 };

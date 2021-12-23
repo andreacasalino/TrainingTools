@@ -7,7 +7,7 @@
 
 #pragma once
 
-#include <TrainingTools/components/TrainableAware.h>
+#include <TrainingTools/interfaces/ModelAware.h>
 
 namespace train {
 class LineSearcher : public virtual ModelAware {

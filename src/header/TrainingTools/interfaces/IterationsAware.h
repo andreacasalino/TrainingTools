@@ -19,14 +19,14 @@ public:
    * @throw in case the passed number of interations is too low
    */
   void setMaxIterations(const std::size_t iter);
-
-  std::size_t getIterations() const { return doneIterations; };
-  void resetIterations() { doneIterations = 1; };
-
-  void incrementIterations() { ++doneIterations; };
+  std::size_t getMaxIterations() const { return maxIterations; };
 
 protected:
   IterationsAware() = default;
+
+  std::size_t getIterations() const { return doneIterations; };
+  void resetIterations() { doneIterations = 1; };
+  void incrementIterations() { ++doneIterations; };
 
 private:
   std::size_t maxIterations = 100;

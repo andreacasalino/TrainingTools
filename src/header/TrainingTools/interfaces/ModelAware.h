@@ -7,14 +7,14 @@
 
 #pragma once
 
-#include <TrainingTools/components/Trainable.h>
+#include <TrainingTools/interfaces/Trainable.h>
 
 namespace train {
 class ModelAware {
 protected:
-  virtual void setModel(Trainable &model) = 0;
-  virtual Trainable &getModel() = 0;
-  virtual const Trainable &getModel() const = 0;
+  void setModel(Trainable &model) { this->model = &model; };
+  Trainable &getModel() { return *model; };
+  const Trainable &getModel() const { return *model; };
 
   const Vect &getLastWeights() const { return lastWeights; }
   void updateWeights(const Vect &weigths) { lastWeights = weigths; }
@@ -23,6 +23,8 @@ protected:
   void updateGradient(const Vect &grad) { lastGrad = grad; }
 
 private:
+  Trainable *model = nullptr;
+
   Vect lastWeights;
   Vect lastGrad;
 };

@@ -6,7 +6,7 @@
  **/
 
 #include <TrainingTools/Error.h>
-#include <TrainingTools/components/IterativeDescend.h>
+#include <TrainingTools/bases/IterativeTrainer.h>
 #include <iostream>
 #include <math.h>
 #include <memory>

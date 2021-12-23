@@ -7,7 +7,7 @@
 
 #pragma once
 
-#include <TrainingTools/components/Trainable.h>
+#include <TrainingTools/interfaces/Trainable.h>
 
 namespace train {
 class Trainer {
