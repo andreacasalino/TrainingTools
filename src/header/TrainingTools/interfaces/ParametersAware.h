@@ -13,9 +13,9 @@ namespace train {
 using Vect = Eigen::VectorXd;
 using Matr = Eigen::MatrixXd;
 
-class Trainable {
+class ParametersAware {
 public:
-  virtual ~Trainable() = default;
+  virtual ~ParametersAware() = default;
 
   virtual Vect getParameters() const = 0;
   virtual void setParameters(const Vect &) = 0;
@@ -25,6 +25,6 @@ public:
   virtual double getCostFunction() const = 0;
 
 protected:
-  Trainable() = default;
+  ParametersAware() = default;
 };
 } // namespace train

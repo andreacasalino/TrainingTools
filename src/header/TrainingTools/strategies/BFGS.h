@@ -15,8 +15,7 @@ namespace train {
  * https://machinelearningmastery.com/bfgs-optimization-in-python/ </a>
  */
 class BFGS : public HessianApproximator {
-private:
-  void updateInvHessian(const Vect &deltaWeight,
-                        const Vect &deltaGrad) override;
+protected:
+  void updateInvHessianApprox() override;
 };
 } // namespace train

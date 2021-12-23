@@ -24,7 +24,7 @@ protected:
   inline void descend() override {
     Vect direction = getModel().getGradient();
     direction *= -1.0;
-    this->minimize(direction);
+    this->optimize(direction);
   };
 };
 } // namespace train

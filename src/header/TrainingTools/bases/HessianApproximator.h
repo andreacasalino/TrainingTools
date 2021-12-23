@@ -7,27 +7,27 @@
 
 #pragma once
 
-#include <TrainingTools/interfaces/ModelAware.h>
-#include <TrainingTools/interfaces/Updatable.h>
+#include <TrainingTools/bases/ModelAware.h>
+#include <memory>
 
 namespace train {
 /**
  * @brief The base for an object storing the local hessian approximation of the
  * function to optimize
  */
-class HessianApproximator : public virtual ModelAware,
-                            public virtual Updatable {
+class HessianApproximator : public virtual ModelAware {
 protected:
-  void update() override;
-  void reset() override;
+  virtual std::unique_ptr<Matr>
+  updatedInvHessianApprox(const Vect &deltaParameters,
+                          const Vect &deltaGradient) = 0;
+  void updateInvHessianApprox();
+  void initInvHessianApprox(Eigen::Index size) {
+    invHessianApprox = std::make_unique<Matr>(size, size);
+  };
 
-  virtual void updateInvHessian(const Vect &deltaWeight,
-                                const Vect &deltaGrad) = 0;
-
-  const Matr &getInvHessianApprox() const { return invHessianApprox; }
-  void setInvHessianApprox(const Matr &hessian) { invHessianApprox = hessian; };
+  const Matr &getInvHessianApprox() const { return *invHessianApprox; }
 
 private:
-  Matr invHessianApprox;
+  std::unique_ptr<Matr> invHessianApprox;
 };
 } // namespace train

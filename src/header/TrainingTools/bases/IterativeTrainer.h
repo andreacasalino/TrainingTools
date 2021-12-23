@@ -7,10 +7,9 @@
 
 #pragma once
 
+#include <TrainingTools/bases/ModelAware.h>
 #include <TrainingTools/interfaces/IterationsAware.h>
-#include <TrainingTools/interfaces/ModelAware.h>
 #include <TrainingTools/interfaces/Trainer.h>
-#include <TrainingTools/interfaces/Updatable.h>
 #include <chrono>
 
 namespace train {
@@ -23,10 +22,9 @@ namespace train {
  */
 class IterativeTrainer : public Trainer,
                          public virtual ModelAware,
-                         public virtual IterationsAware,
-                         public virtual Updatable {
+                         public virtual IterationsAware {
 public:
-  void train_(Trainable &model) override;
+  void train_(ParametersAware &model) override;
 
   /**
    * @brief Set the threshold to consider for the weights improvements
@@ -62,18 +60,23 @@ public:
   };
 
 protected:
+  virtual void updateDirection() = 0;
+  virtual void initDirection() = 0;
   /**
    * @brief called at every iteration to improve the weights
    */
-  virtual void descend() = 0;
+  virtual Vect descend() = 0;
 
-  void update() override;
-  void reset() override;
+  const Vect &getDirections() const { return *direction; };
+  void setDirection(const Vect &dir) {
+    direction = std::make_unique<Vect>(dir);
+  };
 
 private:
   double weightsTollerance = 0.005f;
   double gradientTollerance = 0.005f;
   bool printAdvnc = false;
   std::chrono::milliseconds elapsed = std::chrono::milliseconds(0);
+  std::unique_ptr<Vect> direction;
 };
 } // namespace train

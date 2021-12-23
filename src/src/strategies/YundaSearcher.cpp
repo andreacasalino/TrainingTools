@@ -21,7 +21,7 @@ double YundaSearcher::computeC1() const {
   return 0.0001 * (1.0 - temp) - temp;
 }
 
-void YundaSearcher::minimize(const Vect &direction) {
+void YundaSearcher::optimize(const Vect &direction) {
   double alfa = ALFA_MAX;
   double c1 = this->computeC1();
   std::size_t j = 0;

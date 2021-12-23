@@ -8,7 +8,9 @@
 #include <TrainingTools/strategies/BFGS.h>
 
 namespace train {
-void BFGS::updateInvHessian(const Vect &deltaWeight, const Vect &deltaGrad) {
+void BFGS::updateInvHessianApprox() {
+  const Vect deltaWeight = getModel().getParameters() - getLastWeights();
+  const Vect deltaGrad = getModel().getGradient() - getLastGrad();
   double rho = 1.0 / deltaWeight.dot(deltaGrad);
   Matr V = deltaGrad * deltaWeight.transpose();
   V *= -rho;

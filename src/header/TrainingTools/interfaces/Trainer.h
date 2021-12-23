@@ -7,7 +7,7 @@
 
 #pragma once
 
-#include <TrainingTools/interfaces/Trainable.h>
+#include <TrainingTools/interfaces/ParametersAware.h>
 #include <mutex>
 
 namespace train {
@@ -15,15 +15,15 @@ class Trainer {
 public:
   virtual ~Trainer() = default;
 
-  void train(Trainable &model) {
+  void train(ParametersAware &model) {
     std::lock_guard<std::mutex> lock(train_mutex);
     train_(model);
   };
 
 protected:
-  virtual void train_(Trainable &model) = 0;
-
   Trainer() = default;
+
+  virtual void train_(ParametersAware &model) = 0;
 
 private:
   std::mutex train_mutex;

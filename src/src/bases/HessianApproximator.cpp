@@ -8,14 +8,9 @@
 #include <TrainingTools/bases/HessianApproximator.h>
 
 namespace train {
-void HessianApproximator::update() {
-  this->updateInvHessian(getModel().getParameters() - getLastWeights(),
-                         getModel().getGradient() - getLastGrad());
-}
-
-void HessianApproximator::reset() {
-  Eigen::Index size =
-      static_cast<Eigen::Index>(getModel().getParameters().size());
-  this->invHessianApprox = Matr::Identity(size, size);
+void HessianApproximator::updateInvHessianApprox() {
+  auto deltaPar = getParameters() - getLastParameters();
+  auto deltaGrad = getGradient() - getLastGradient();
+  this->invHessianApprox = this->updatedInvHessianApprox(deltaPar, deltaGrad);
 }
 } // namespace train
