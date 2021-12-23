@@ -16,14 +16,14 @@ namespace train {
  * searched
  */
 template <typename LineSearcherT = YundaSearcher>
-class GradientDescend : public IterativeDescend, public LineSearcherT {
+class GradientDescend : public IterativeTrainer, public LineSearcherT {
   static_assert(std::is_base_of<LineSearcher, LineSearcherT>::value,
                 "LineSearcherT should be a form of LineSearcher");
 
 protected:
   inline void descend() override {
-    Vect direction = this->getGradient();
-    direction *= -1.f;
+    Vect direction = getModel().getGradient();
+    direction *= -1.0;
     this->minimize(direction);
   };
 };

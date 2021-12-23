@@ -7,10 +7,10 @@
 
 #pragma once
 
-#include <trainers/bases/IterativeTrainer.h>
-#include <trainers/strategies/YundaSearcher.h>
+#include <TrainingTools/bases/IterativeTrainer.h>
+#include <TrainingTools/strategies/YundaSearcher.h>
 
-namespace EFG::train {
+namespace train {
 /**
  * @brief refer to <a href="linkURL">
  * https://www.caam.rice.edu/~zhang/caam454/pdf/cgsurvey.pdf </a> and the
@@ -60,7 +60,7 @@ class GradientDescendConjugate : public IterativeTrainer,
 
 protected:
   void reset() override {
-    this->IterativeDescend::reset();
+    this->IterativeTrainer::reset();
     this->lastDirection = this->getGradient();
     this->lastDirection *= -1.f;
   }
@@ -75,4 +75,4 @@ protected:
     this->lastDirection = std::move(direction);
   };
 };
-} // namespace EFG::train
+} // namespace train

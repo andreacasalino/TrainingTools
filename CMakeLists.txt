@@ -20,3 +20,8 @@ set(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib")
 project(TrainingTools)
 add_subdirectory(src)
 
+option(BUILD_TrainingTools_TESTS "" OFF)
+if(BUILD_TrainingTools_TESTS)
+	project(TrainingTools-Tests)
+    add_subdirectory(tests)
+endif()

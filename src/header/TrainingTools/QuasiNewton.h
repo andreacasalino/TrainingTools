@@ -7,11 +7,10 @@
 
 #pragma once
 
-#include <trainers/Commons.h>
-#include <trainers/components/IterativeDescend.h>
-#include <trainers/strategies/BFGS.h>
-#include <trainers/strategies/BasicTrainSet.h>
-#include <trainers/strategies/YundaSearcher.h>
+#include <TrainingTools/bases/IterativeTrainer.h>
+#include <TrainingTools/strategies/BFGS.h>
+#include <TrainingTools/strategies/BasicTrainSet.h>
+#include <TrainingTools/strategies/YundaSearcher.h>
 
 namespace EFG::train {
 template <typename LineSearcherT = YundaSearcher,

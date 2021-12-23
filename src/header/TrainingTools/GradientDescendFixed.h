@@ -8,32 +8,21 @@
 #pragma once
 
 #include <TrainingTools/Error.h>
-#include <trainers/bases/IterativeTrainer.h>
+#include <TrainingTools/bases/IterativeTrainer.h>
 
-namespace EFG::train {
+namespace train {
 /**
  * @brief At the every iteration the weights are updated in the following way:
     w_k+1 = w_k + step * gradient
  */
-class GradientDescendFixed : public IterativeDescend {
+class GradientDescendFixed : public IterativeTrainer {
 public:
-  void setStep(const float step) {
-    if (step <= 0.f) {
-      throw Error("Invalid step");
-    }
-    this->step = step;
-  };
+  void setStep(const double step);
 
 protected:
-  void descend() override {
-    auto direction = this->getGradient();
-    direction *= this->step;
-    auto w = this->model->getWeights();
-    w -= direction;
-    this->model->setWeights(w);
-  };
+  void descend() override;
 
 private:
-  float step = 0.5f;
+  double step = 0.5;
 };
-} // namespace EFG::train
+} // namespace train
