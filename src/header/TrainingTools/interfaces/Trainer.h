@@ -8,15 +8,24 @@
 #pragma once
 
 #include <TrainingTools/interfaces/Trainable.h>
+#include <mutex>
 
 namespace train {
 class Trainer {
 public:
   virtual ~Trainer() = default;
 
-  virtual void train(Trainable &model) = 0;
+  void train(Trainable &model) {
+    std::lock_guard<std::mutex> lock(train_mutex);
+    train_(model);
+  };
 
 protected:
+  virtual void train_(Trainable &model) = 0;
+
   Trainer() = default;
+
+private:
+  std::mutex train_mutex;
 };
 } // namespace train

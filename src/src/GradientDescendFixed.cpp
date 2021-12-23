@@ -15,11 +15,11 @@ void GradientDescendFixed::setStep(const double step) {
   this->step = step;
 };
 
-void GradientDescendFixed::descend() override {
+void GradientDescendFixed::descend() {
   auto direction = getModel().getGradient();
   direction *= this->step;
-  auto w = getModel().getParmeters();
+  auto w = getModel().getParameters();
   w -= direction;
-  getModel().setParmeters(w);
+  getModel().setParameters(w);
 };
 } // namespace train

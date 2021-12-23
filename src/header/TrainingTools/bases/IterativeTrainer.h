@@ -8,7 +8,7 @@
 #pragma once
 
 #include <TrainingTools/interfaces/IterationsAware.h>
-#include <TrainingTools/interfaces/TrainableAware.h>
+#include <TrainingTools/interfaces/ModelAware.h>
 #include <TrainingTools/interfaces/Trainer.h>
 #include <TrainingTools/interfaces/Updatable.h>
 #include <chrono>
@@ -26,7 +26,7 @@ class IterativeTrainer : public Trainer,
                          public virtual IterationsAware,
                          public virtual Updatable {
 public:
-  void train(Trainable &model) override;
+  void train_(Trainable &model) override;
 
   /**
    * @brief Set the threshold to consider for the weights improvements

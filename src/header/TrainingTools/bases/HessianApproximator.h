@@ -28,6 +28,6 @@ protected:
   void setInvHessianApprox(const Matr &hessian) { invHessianApprox = hessian; };
 
 private:
-  Matr invHessianApprox = Matr(1);
+  Matr invHessianApprox;
 };
 } // namespace train

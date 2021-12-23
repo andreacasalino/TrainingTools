@@ -7,7 +7,7 @@
 //
 //#include <trainers/strategies/lBFGS.h>
 //
-// namespace EFG::train {
+// namespace train {
 //    void LBFGS::updateInvHessian(const Eigen::VectorXf& deltaW, const
 //    Eigen::VectorXf& deltaGrad) {
 //        {

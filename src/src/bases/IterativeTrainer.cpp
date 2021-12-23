@@ -60,31 +60,31 @@ private:
 };
 }; // namespace
 
-void IterativeTrainer::train(Trainable &model) {
+void IterativeTrainer::train_(Trainable &model) {
   this->elapsed = std::chrono::milliseconds(0);
   this->setModel(model);
   this->reset();
   std::unique_ptr<Vect> wOld =
-      std::make_unique<Vect>(this->model->getWeights());
+      std::make_unique<Vect>(getModel().getParameters());
   std::unique_ptr<Vect> wAtt;
-  for (std::size_t k = 0; k < this->maxIterations; ++k) {
+  for (std::size_t k = 0; k < getMaxIterations(); ++k) {
     if (this->printAdvnc) {
-      std::cout << "\r iteration:  " << k << " / " << this->maxIterations
+      std::cout << "\r iteration:  " << k << " / " << getMaxIterations()
                 << std::endl;
     }
     TimeCounter counter(this->elapsed);
     this->descend();
     this->update();
-    if (l1Norm(this->lastGrad) < this->gradientTollerance) {
+    if (l1Norm(getLastGrad()) < this->gradientTollerance) {
       break;
     }
-    wAtt = std::make_unique<Vect>(this->model->getWeights());
+    wAtt = std::make_unique<Vect>(getModel().getParameters());
     if (l1Norm(*wOld - *wAtt) < this->weightsTollerance) {
       break;
     }
     std::swap(wOld, wAtt);
   }
-  this->model = nullptr;
+  resetModel();
 }
 
 void IterativeTrainer::update() {

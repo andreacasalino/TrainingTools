@@ -13,6 +13,7 @@ namespace train {
 class ModelAware {
 protected:
   void setModel(Trainable &model) { this->model = &model; };
+  void resetModel() { this->model = nullptr; }
   Trainable &getModel() { return *model; };
   const Trainable &getModel() const { return *model; };
 

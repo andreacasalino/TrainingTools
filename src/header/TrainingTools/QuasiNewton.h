@@ -9,13 +9,12 @@
 
 #include <TrainingTools/bases/IterativeTrainer.h>
 #include <TrainingTools/strategies/BFGS.h>
-#include <TrainingTools/strategies/BasicTrainSet.h>
 #include <TrainingTools/strategies/YundaSearcher.h>
 
-namespace EFG::train {
+namespace train {
 template <typename LineSearcherT = YundaSearcher,
           typename HessianApproximatorT = BFGS>
-class QuasiNewton : public IterativeDescend,
+class QuasiNewton : public IterativeTrainer,
                     public LineSearcherT,
                     public HessianApproximatorT {
   static_assert(std::is_base_of<LineSearcher, LineSearcherT>::value,
@@ -43,4 +42,4 @@ protected:
     this->IterativeDescend::update();
   };
 };
-} // namespace EFG::train
+} // namespace train

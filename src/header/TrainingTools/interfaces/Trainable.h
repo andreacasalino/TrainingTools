@@ -17,12 +17,12 @@ class Trainable {
 public:
   virtual ~Trainable() = default;
 
-  virtual Vect getParameters() = 0;
+  virtual Vect getParameters() const = 0;
   virtual void setParameters(const Vect &) = 0;
 
-  virtual Vect getGradient() = 0;
+  virtual Vect getGradient() const = 0;
 
-  virtual double getCostFunction() = 0;
+  virtual double getCostFunction() const = 0;
 
 protected:
   Trainable() = default;

@@ -5,27 +5,30 @@
  * report any bug to andrecasa91@gmail.com.
  **/
 
-#include <trainers/GradientDescendConjugate.h>
+#include <TrainingTools/GradientDescendConjugate.h>
 
-namespace EFG::train {
+namespace train {
 float FletcherReeves::getBeta() const {
-  Vect grad = this->getGradient();
-  return dot(grad, grad) / dot(this->lastGrad, this->lastGrad);
+  Vect grad = getModel().getGradient();
+  const auto &last_grad = getLastGrad();
+  return grad.dot(grad) / last_grad.dot(last_grad);
 }
 
 float PolakRibiere::getBeta() const {
-  Vect grad = this->getGradient();
-  return dot(grad, grad - this->lastGrad) / dot(this->lastGrad, this->lastGrad);
+  Vect grad = getModel().getGradient();
+  const auto &last_grad = getLastGrad();
+  return grad.dot(grad - last_grad) / last_grad.dot(last_grad);
 }
 
 float HestenesStiefel::getBeta() const {
-  Vect grad = this->getGradient();
-  Vect deltaGrad = grad - this->lastGrad;
-  return dot(grad, deltaGrad) / dot(this->lastDirection, deltaGrad);
+  Vect grad = getModel().getGradient();
+  Vect deltaGrad = grad - getLastGrad();
+  return grad.dot(deltaGrad) / getLastGrad().dot(deltaGrad);
 }
 
 float DaiYuan::getBeta() const {
-  Vect grad = this->getGradient();
-  return dot(grad, grad) / dot(this->lastDirection, grad - this->lastGrad);
+  Vect grad = getModel().getGradient();
+  const auto &last_grad = getLastGrad();
+  return grad.dot(grad) / last_grad.dot(grad - last_grad);
 }
-} // namespace EFG::train
+} // namespace train
