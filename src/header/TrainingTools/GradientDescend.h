@@ -21,10 +21,8 @@ class GradientDescend : public IterativeTrainer, public LineSearcherT {
                 "LineSearcherT should be a form of LineSearcher");
 
 protected:
-  inline void descend() override {
-    Vect direction = getModel().getGradient();
-    direction *= -1.0;
-    this->optimize(direction);
-  };
+  void updateDirection() override { setDirection(getGradient()); };
+  void initDirection() override { updateDirection(); };
+  Vect descend() override { return this->optimize(getDirection()); };
 };
 } // namespace train

@@ -18,7 +18,7 @@ namespace train {
  */
 class YundaSearcher : public LineSearcher, virtual public IterationsAware {
 protected:
-  void optimize(const Vect &direction) override;
+  Vect optimize(const Vect &direction) override;
 
   double computeC1() const;
 };

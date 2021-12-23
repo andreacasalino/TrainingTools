@@ -8,21 +8,21 @@
 #include <TrainingTools/strategies/BFGS.h>
 
 namespace train {
-void BFGS::updateInvHessianApprox() {
-  const Vect deltaWeight = getModel().getParameters() - getLastWeights();
-  const Vect deltaGrad = getModel().getGradient() - getLastGrad();
-  double rho = 1.0 / deltaWeight.dot(deltaGrad);
-  Matr V = deltaGrad * deltaWeight.transpose();
+std::unique_ptr<Matr> BFGS::updatedInvHessianApprox(const Vect &deltaParameters,
+                                                    const Vect &deltaGradient) {
+  double rho = 1.0 / deltaParameters.dot(deltaGradient);
+  Matr V = deltaGradient * deltaParameters.transpose();
   V *= -rho;
-  V += Matr::Identity(deltaGrad.size(), deltaGrad.size());
-  Matr Vtrasp = deltaWeight * deltaGrad.transpose();
+  V += Matr::Identity(deltaGradient.size(), deltaGradient.size());
+  Matr Vtrasp = deltaParameters * deltaGradient.transpose();
   Vtrasp *= -rho;
-  Vtrasp += Matr::Identity(deltaWeight.size(), deltaWeight.size());
+  Vtrasp += Matr::Identity(deltaParameters.size(), deltaParameters.size());
 
-  Matr newHessianApprox = Vtrasp * getInvHessianApprox() * V;
-  Matr S = deltaWeight * deltaWeight.transpose();
+  std::unique_ptr<Matr> newHessianApprox =
+      std::make_unique<Matr>(Vtrasp * getInvHessianApprox() * V);
+  Matr S = deltaParameters * deltaParameters.transpose();
   S *= rho;
-  newHessianApprox += S;
-  setInvHessianApprox(newHessianApprox);
+  *newHessianApprox += S;
+  return newHessianApprox;
 }
 } // namespace train

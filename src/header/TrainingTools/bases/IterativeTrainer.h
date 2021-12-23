@@ -67,7 +67,7 @@ protected:
    */
   virtual Vect descend() = 0;
 
-  const Vect &getDirections() const { return *direction; };
+  const Vect &getDirection() const { return *direction; };
   void setDirection(const Vect &dir) {
     direction = std::make_unique<Vect>(dir);
   };

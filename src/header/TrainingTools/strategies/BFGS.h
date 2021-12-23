@@ -16,6 +16,8 @@ namespace train {
  */
 class BFGS : public HessianApproximator {
 protected:
-  void updateInvHessianApprox() override;
+  std::unique_ptr<Matr>
+  updatedInvHessianApprox(const Vect &deltaParameters,
+                          const Vect &deltaGradient) override;
 };
 } // namespace train

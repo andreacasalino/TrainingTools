@@ -21,16 +21,17 @@ double YundaSearcher::computeC1() const {
   return 0.0001 * (1.0 - temp) - temp;
 }
 
-void YundaSearcher::optimize(const Vect &direction) {
+Vect YundaSearcher::optimize(const Vect &direction) {
   double alfa = ALFA_MAX;
   double c1 = this->computeC1();
   std::size_t j = 0;
   double mu = 0.f;
-  double gdOld = getLastGrad().dot(direction);
-  auto &model = getModel();
+  double gdOld = getLastGradient().dot(direction);
   while ((j < ITER_MAX) && (alfa >= ALFA_MIN) && (alfa <= ALFA_MAX)) {
-    model.setParameters(getLastWeights() + direction * alfa);
-    double gd = model.getGradient().dot(direction);
+    // check well computations here
+    throw 0;
+    setParameters(getLastParameters() + direction * alfa);
+    double gd = getGradient().dot(direction);
     // check condition in equation 7
     if (gd > gdOld * c1) {
       alfa = 0.5f * (mu + alfa);

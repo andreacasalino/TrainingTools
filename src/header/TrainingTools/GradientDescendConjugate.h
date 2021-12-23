@@ -59,20 +59,32 @@ class GradientDescendConjugate : public IterativeTrainer,
                 "BetaStrategyT should be a form of BetaStrategy");
 
 protected:
-  void reset() override {
-    this->IterativeTrainer::reset();
-    this->lastDirection = this->getGradient();
-    this->lastDirection *= -1.f;
-  }
-
-  void descend() override {
+  void updateDirection() override {
     Vect direction = this->getGradient();
     direction *= -1.f;
-    Vect correction = this->lastDirection;
+    Vect correction = getGradient();
     correction *= this->getBeta();
     direction += correction;
     this->minimize(direction);
     this->lastDirection = std::move(direction);
   };
+  void initDirection() override { setDirection(getGradient()); };
+  Vect descend() override { return this->optimize(getDirection()); };
+
+  // void reset() override {
+  //   this->IterativeTrainer::reset();
+  //   this->lastDirection = this->getGradient();
+  //   this->lastDirection *= -1.f;
+  // }
+
+  // void descend() override {
+  //   Vect direction = this->getGradient();
+  //   direction *= -1.f;
+  //   Vect correction = this->lastDirection;
+  //   correction *= this->getBeta();
+  //   direction += correction;
+  //   this->minimize(direction);
+  //   this->lastDirection = std::move(direction);
+  // };
 };
 } // namespace train

@@ -17,6 +17,6 @@ protected:
    * passed direction
    * @param the direction along which to search the optimum
    */
-  virtual void optimize(const Vect &direction) = 0;
+  virtual Vect optimize(const Vect &direction) = 0;
 };
 } // namespace train

@@ -20,7 +20,9 @@ public:
   void setStep(const double step);
 
 protected:
-  void descend() override;
+  void updateDirection() override { setDirection(getGradient()); };
+  void initDirection() override { updateDirection(); };
+  Vect descend() override;
 
 private:
   double step = 0.5;

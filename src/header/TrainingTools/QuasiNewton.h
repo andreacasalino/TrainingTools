@@ -24,22 +24,17 @@ class QuasiNewton : public IterativeTrainer,
       "HessianApproximatorT should be a form of HessianApproximator");
 
 protected:
-  inline void descend() override {
-    // Vect direction = this->invHessianApprox * this->getGradient();
+  void updateDirection() override {
+    this->updateInvHessianApprox();
     Vect direction = this->getGradient();
-    direction = this->invHessianApprox * direction;
+    direction = getInvHessianApprox() * direction;
     direction *= -1.f;
-    this->minimize(direction);
+    setDirection(direction);
   };
-
-  void update() override {
-    this->HessianApproximatorT::update();
-    this->IterativeDescend::update();
+  void initDirection() override {
+    setDirection(getGradient());
+    this->initInvHessianApprox(getParameters().size());
   };
-
-  void reset() override {
-    this->HessianApproximatorT::reset();
-    this->IterativeDescend::update();
-  };
+  Vect descend() override { return this->optimize(getDirection()); };
 };
 } // namespace train
