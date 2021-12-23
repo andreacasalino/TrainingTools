@@ -9,6 +9,7 @@
 
 #include <TrainingTools/bases/ModelAware.h>
 #include <TrainingTools/interfaces/IterationsAware.h>
+#include <TrainingTools/interfaces/SearchDirectionAware.h>
 #include <TrainingTools/interfaces/Trainer.h>
 #include <chrono>
 
@@ -22,7 +23,8 @@ namespace train {
  */
 class IterativeTrainer : public Trainer,
                          public virtual ModelAware,
-                         public virtual IterationsAware {
+                         public virtual IterationsAware,
+                         public virtual SearchDirectionAware {
 public:
   void train_(ParametersAware &model) override;
 
@@ -60,8 +62,6 @@ public:
   };
 
 protected:
-  virtual void updateDirection() = 0;
-  virtual void initDirection() = 0;
   /**
    * @brief called at every iteration to improve the weights
    */

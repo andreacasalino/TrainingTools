@@ -8,15 +8,17 @@
 #pragma once
 
 #include <TrainingTools/bases/ModelAware.h>
+#include <TrainingTools/interfaces/SearchDirectionAware.h>
 
 namespace train {
-class LineSearcher : public virtual ModelAware {
+class LineSearcher : public virtual ModelAware,
+                     public virtual SearchDirectionAware {
 protected:
   /**
    * @brief finds the values of the weight maximizing the likelihood, along the
    * passed direction
    * @param the direction along which to search the optimum
    */
-  virtual Vect optimize(const Vect &direction) = 0;
+  virtual void optimize() = 0;
 };
 } // namespace train

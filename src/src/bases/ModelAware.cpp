@@ -13,14 +13,10 @@ void ModelAware::initModel(ParametersAware &model) {
   this->setParameters(this->model->getParameters());
 }
 
-void ModelAware::resetModel() {
-  this->model = nullptr;
-  this->lastWeights.reset();
-  this->lastGrad.reset();
-}
+void ModelAware::resetModel() { this->model = nullptr; }
 
 void ModelAware::setParameters(const Vect &parameters) {
-  lastWeights = std::make_unique<Vect>(this->model->getParameters());
+  lastParameters = std::make_unique<Vect>(this->model->getParameters());
   lastGrad = std::make_unique<Vect>(this->model->getGradient());
   this->model->setParameters(parameters);
 };
