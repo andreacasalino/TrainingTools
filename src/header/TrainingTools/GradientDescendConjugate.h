@@ -7,8 +7,7 @@
 
 #pragma once
 
-#include <trainers/components/IterativeDescend.h>
-#include <trainers/strategies/BasicTrainSet.h>
+#include <trainers/bases/IterativeTrainer.h>
 #include <trainers/strategies/YundaSearcher.h>
 
 namespace EFG::train {
@@ -49,15 +48,11 @@ protected:
  * gradient method, <a href="linkURL">
  * https://www.caam.rice.edu/~zhang/caam454/pdf/cgsurvey.pdf </a> , is searched
  */
-template <typename TrainSetT = BasicTrainSet,
-          typename LineSearcherT = YundaSearcher,
+template <typename LineSearcherT = YundaSearcher,
           typename BetaStrategyT = FletcherReeves>
-class GradientDescendConjugate : public IterativeDescend,
-                                 public TrainSetT,
+class GradientDescendConjugate : public IterativeTrainer,
                                  public LineSearcherT,
                                  public BetaStrategyT {
-  static_assert(std::is_base_of<BasicTrainSet, TrainSetT>::value,
-                "TrainSetT should be a form of BasicTrainSet");
   static_assert(std::is_base_of<LineSearcher, LineSearcherT>::value,
                 "LineSearcherT should be a form of LineSearcher");
   static_assert(std::is_base_of<BetaStrategy, BetaStrategyT>::value,

@@ -7,8 +7,8 @@
 
 #pragma once
 
-#include <TrainingTools/components/IterationsAware.h>
-#include <TrainingTools/components/LineSearcher.h>
+#include <TrainingTools/bases/LineSearcher.h>
+#include <TrainingTools/interfaces/IterationsAware.h>
 
 namespace train {
 /**
@@ -20,6 +20,6 @@ class YundaSearcher : public LineSearcher, virtual public IterationsAware {
 protected:
   void minimize(const Vect &direction) override;
 
-  float computeC1() const;
+  double computeC1() const;
 };
 } // namespace train

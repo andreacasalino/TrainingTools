@@ -7,20 +7,15 @@
 
 #pragma once
 
-#include <Error.h>
-#include <trainers/components/IterativeDescend.h>
-#include <trainers/strategies/BasicTrainSet.h>
+#include <TrainingTools/Error.h>
+#include <trainers/bases/IterativeTrainer.h>
 
 namespace EFG::train {
 /**
  * @brief At the every iteration the weights are updated in the following way:
     w_k+1 = w_k + step * gradient
  */
-template <typename TrainSetT = BasicTrainSet>
-class GradientDescendFixed : public IterativeDescend, public TrainSetT {
-  static_assert(std::is_base_of<BasicTrainSet, TrainSetT>::value,
-                "TrainSetT should be a form of BasicTrainSet");
-
+class GradientDescendFixed : public IterativeDescend {
 public:
   void setStep(const float step) {
     if (step <= 0.f) {

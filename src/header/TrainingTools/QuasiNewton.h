@@ -14,15 +14,11 @@
 #include <trainers/strategies/YundaSearcher.h>
 
 namespace EFG::train {
-template <typename TrainSetT = BasicTrainSet,
-          typename LineSearcherT = YundaSearcher,
+template <typename LineSearcherT = YundaSearcher,
           typename HessianApproximatorT = BFGS>
 class QuasiNewton : public IterativeDescend,
-                    public TrainSetT,
                     public LineSearcherT,
                     public HessianApproximatorT {
-  static_assert(std::is_base_of<BasicTrainSet, TrainSetT>::value,
-                "TrainSetT should be a form of BasicTrainSet");
   static_assert(std::is_base_of<LineSearcher, LineSearcherT>::value,
                 "LineSearcherT should be a form of LineSearcher");
   static_assert(

@@ -7,7 +7,7 @@
 
 #pragma once
 
-#include <TrainingTools/components/IterativeDescend.h>
+#include <TrainingTools/bases/IterativeTrainer.h>
 #include <TrainingTools/strategies/YundaSearcher.h>
 
 namespace train {
@@ -16,9 +16,7 @@ namespace train {
  * searched
  */
 template <typename LineSearcherT = YundaSearcher>
-class GradientDescend : public IterativeDescend,
-                        public TrainSetT,
-                        public LineSearcherT {
+class GradientDescend : public IterativeDescend, public LineSearcherT {
   static_assert(std::is_base_of<LineSearcher, LineSearcherT>::value,
                 "LineSearcherT should be a form of LineSearcher");
 

@@ -5,9 +5,9 @@
  * report any bug to andrecasa91@gmail.com.
  **/
 
-#include <trainers/strategies/BFGS.h>
+#include <trainers/bases/BFGS.h>
 
-namespace EFG::train {
+namespace train {
 void BFGS::updateInvHessian(const Vect &deltaWeight, const Vect &deltaGrad) {
   float rho = 1.f / dot(deltaWeight, deltaGrad);
   Matr V(deltaGrad, deltaWeight);
@@ -22,4 +22,4 @@ void BFGS::updateInvHessian(const Vect &deltaWeight, const Vect &deltaGrad) {
   S *= rho;
   this->invHessianApprox += S;
 }
-} // namespace EFG::train
+} // namespace train

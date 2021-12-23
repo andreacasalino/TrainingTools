@@ -12,20 +12,21 @@
 #include <memory>
 
 namespace train {
-void IterativeDescend::setWeightsTollerance(const float value) {
-  if (value < 0.f) {
+void IterativeTrainer::setWeightsTollerance(const double value) {
+  if (value < 0) {
     throw Error("Negative tollerance value");
   }
   this->weightsTollerance = value;
 };
 
-void IterativeDescend::setGradientTollerance(const float value) {
-  if (value < 0.f) {
+void IterativeTrainer::setGradientTollerance(const double value) {
+  if (value < 0) {
     throw Error("Negative tollerance value");
   }
   this->gradientTollerance = value;
 };
 
+namespace {
 double l1Norm(const Vect &v) {
   double res = 0.f;
   const double *data = v.data();
@@ -35,7 +36,7 @@ double l1Norm(const Vect &v) {
     }
   }
   return res;
-};
+}
 
 class TimeCounter {
 public:
@@ -57,8 +58,9 @@ private:
 #endif
   std::chrono::milliseconds &cumulatedTime;
 };
+}; // namespace
 
-void IterativeDescend::train(Trainable &model) {
+void IterativeTrainer::train(Trainable &model) {
   this->elapsed = std::chrono::milliseconds(0);
   this->setModel(model);
   this->reset();
@@ -85,13 +87,13 @@ void IterativeDescend::train(Trainable &model) {
   this->model = nullptr;
 }
 
-void IterativeDescend::update() {
+void IterativeTrainer::update() {
   this->incrementIterations();
   this->updateWeights(getModel().getParameters());
   this->updateGradient(getModel().getGradient());
 };
 
-void IterativeDescend::reset() {
+void IterativeTrainer::reset() {
   this->resetIterations();
   this->updateWeights(getModel().getParameters());
   this->updateGradient(getModel().getGradient());

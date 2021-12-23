@@ -8,15 +8,15 @@
 #include <math.h>
 #include <trainers/strategies/YundaSearcher.h>
 
-namespace EFG::train {
+namespace train {
 constexpr float ALFA_MAX = 1.f;
 constexpr float ALFA_MIN = 0.001f;
 constexpr float C2 = 0.9f;
 constexpr int ITER_MAX = 10;
 
-float YundaSearcher::computeC1() const {
-  float temp = powf(0.9f, static_cast<float>(this->doneIterations));
-  return 0.0001f * (1.f - temp) - temp;
+double YundaSearcher::computeC1() const {
+  double temp = pow(0.9f, static_cast<float>(this->doneIterations));
+  return 0.0001 * (1.0 - temp) - temp;
 }
 
 void YundaSearcher::minimize(const Vect &direction) {
@@ -45,4 +45,4 @@ void YundaSearcher::minimize(const Vect &direction) {
   // float gd =
   // makeVectorXf(this->model->getGradient(this->getTrainSet())).dot(direction);
 }
-} // namespace EFG::train
+} // namespace train
