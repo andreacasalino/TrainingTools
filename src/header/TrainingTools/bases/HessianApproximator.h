@@ -7,8 +7,8 @@
 
 #pragma once
 
-#include <TrainingTools/components/TrainableAware.h>
-#include <TrainingTools/components/Updatable.h>
+#include <TrainingTools/interfaces/ModelAware.h>
+#include <TrainingTools/interfaces/Updatable.h>
 
 namespace train {
 /**
@@ -25,6 +25,7 @@ protected:
                                 const Vect &deltaGrad) = 0;
 
   const Matr &getInvHessianApprox() const { return invHessianApprox; }
+  void setInvHessianApprox(const Matr &hessian) { invHessianApprox = hessian; };
 
 private:
   Matr invHessianApprox = Matr(1);

@@ -5,21 +5,22 @@
  * report any bug to andrecasa91@gmail.com.
  **/
 
-#include <trainers/bases/BFGS.h>
+#include <TrainingTools/strategies/BFGS.h>
 
 namespace train {
 void BFGS::updateInvHessian(const Vect &deltaWeight, const Vect &deltaGrad) {
-  float rho = 1.f / dot(deltaWeight, deltaGrad);
-  Matr V(deltaGrad, deltaWeight);
+  double rho = 1.0 / deltaWeight.dot(deltaGrad);
+  Matr V = deltaGrad * deltaWeight.transpose();
   V *= -rho;
-  V.addIdentity();
-  Matr Vtrasp(deltaWeight, deltaGrad);
+  V += Matr::Identity(deltaGrad.size(), deltaGrad.size());
+  Matr Vtrasp = deltaWeight * deltaGrad.transpose();
   Vtrasp *= -rho;
-  Vtrasp.addIdentity();
+  Vtrasp += Matr::Identity(deltaWeight.size(), deltaWeight.size());
 
-  this->invHessianApprox = Vtrasp * this->invHessianApprox * V;
-  Matr S(deltaWeight, deltaWeight);
+  Matr newHessianApprox = Vtrasp * getInvHessianApprox() * V;
+  Matr S = deltaWeight * deltaWeight.transpose();
   S *= rho;
-  this->invHessianApprox += S;
+  newHessianApprox += S;
+  setInvHessianApprox(newHessianApprox);
 }
 } // namespace train

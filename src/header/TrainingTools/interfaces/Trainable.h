@@ -18,6 +18,7 @@ public:
   virtual ~Trainable() = default;
 
   virtual Vect getParameters() = 0;
+  virtual void setParameters(const Vect &) = 0;
 
   virtual Vect getGradient() = 0;
 

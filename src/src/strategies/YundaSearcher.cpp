@@ -5,29 +5,32 @@
  * report any bug to andrecasa91@gmail.com.
  **/
 
+#include <TrainingTools/strategies/YundaSearcher.h>
 #include <math.h>
-#include <trainers/strategies/YundaSearcher.h>
 
 namespace train {
-constexpr float ALFA_MAX = 1.f;
-constexpr float ALFA_MIN = 0.001f;
-constexpr float C2 = 0.9f;
+namespace {
+constexpr double ALFA_MAX = 1.0;
+constexpr double ALFA_MIN = 0.001;
+constexpr double C2 = 0.9;
 constexpr int ITER_MAX = 10;
+} // namespace
 
 double YundaSearcher::computeC1() const {
-  double temp = pow(0.9f, static_cast<float>(this->doneIterations));
+  double temp = pow(0.9, static_cast<double>(getIterations()));
   return 0.0001 * (1.0 - temp) - temp;
 }
 
 void YundaSearcher::minimize(const Vect &direction) {
-  float alfa = ALFA_MAX;
-  float c1 = this->computeC1();
+  double alfa = ALFA_MAX;
+  double c1 = this->computeC1();
   std::size_t j = 0;
-  float mu = 0.f;
-  float gdOld = dot(this->lastGrad, direction);
+  double mu = 0.f;
+  double gdOld = getLastGrad().dot(direction);
+  auto &model = getModel();
   while ((j < ITER_MAX) && (alfa >= ALFA_MIN) && (alfa <= ALFA_MAX)) {
-    this->model->setWeights(this->lastWeights + direction * alfa);
-    float gd = dot(this->getGradient(), direction);
+    model.setParameters(getLastWeights() + direction * alfa);
+    double gd = model.getGradient().dot(direction);
     // check condition in equation 7
     if (gd > gdOld * c1) {
       alfa = 0.5f * (mu + alfa);
@@ -41,8 +44,5 @@ void YundaSearcher::minimize(const Vect &direction) {
     }
     return;
   }
-  // this->model->setWeights(makeVector(*this->lastWeights + direction * alfa));
-  // float gd =
-  // makeVectorXf(this->model->getGradient(this->getTrainSet())).dot(direction);
 }
 } // namespace train
