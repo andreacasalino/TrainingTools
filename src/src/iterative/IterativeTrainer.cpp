@@ -64,15 +64,15 @@ void IterativeTrainer::train_(ParametersAware &model) {
   this->elapsed = std::chrono::milliseconds(0);
   this->initModel(model);
   this->initDirection();
-  for (std::size_t k = 0; k < getMaxIterations(); ++k) {
+  this->resetIterations();
+  while (getIterations() < getMaxIterations()) {
     if (this->printAdvnc) {
-      std::cout << "\r iteration:  " << k << " / " << getMaxIterations()
-                << std::endl;
+      std::cout << "\r iteration:  " << getIterations() << " / "
+                << getMaxIterations() << std::endl;
     }
     TimeCounter counter(this->elapsed);
     auto deltaParameters = getParameters();
-    this->descend();
-    this->incrementIterations();
+    this->optimize();
     if (l1Norm(getGradient()) < this->gradientTollerance) {
       break;
     }
@@ -81,6 +81,7 @@ void IterativeTrainer::train_(ParametersAware &model) {
       break;
     }
     this->updateDirection();
+    this->incrementIterations();
   }
   resetModel();
 }

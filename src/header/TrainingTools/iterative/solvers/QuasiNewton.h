@@ -27,13 +27,13 @@ protected:
     this->updateInvHessianApprox();
     Vect direction = this->getGradient();
     direction = getInvHessianApprox() * direction;
-    direction *= -1.f;
+    direction *= -1.0;
     setDirection(direction);
   };
   void initDirection() override {
+    this->initInvHessianApprox(gradient.size());
     auto gradient = getGradient();
     setDirection(gradient);
-    this->initInvHessianApprox(gradient.size());
   };
 };
 } // namespace train

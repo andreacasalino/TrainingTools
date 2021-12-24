@@ -19,6 +19,6 @@ protected:
    * passed direction
    * @param the direction along which to search the optimum
    */
-  virtual void descend() = 0;
+  virtual void optimize() = 0;
 };
 } // namespace train

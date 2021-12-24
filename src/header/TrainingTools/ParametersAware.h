@@ -22,8 +22,6 @@ public:
 
   virtual Vect getGradient() const = 0;
 
-  virtual double getCostFunction() const = 0;
-
 protected:
   ParametersAware() = default;
 };

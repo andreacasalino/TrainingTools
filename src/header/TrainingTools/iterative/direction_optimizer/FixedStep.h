@@ -12,10 +12,10 @@
 namespace train {
 class FixedStep : public virtual ModelAware, public virtual LineSearcher {
 public:
-  void setDescendStep(const double step);
+  void setOptimizationStep(const double step);
 
 protected:
-  void descend() override;
+  void optimize() override;
 
 private:
   double step;

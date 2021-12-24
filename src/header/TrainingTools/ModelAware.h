@@ -21,10 +21,6 @@ protected:
 
   Vect getGradient() const override { return this->model->getGradient(); };
 
-  double getCostFunction() const override {
-    return this->model->getCostFunction();
-  };
-
   const Vect &getLastParameters() const { return *lastParameters; }
   const Vect &getLastGradient() const { return *lastGrad; }
 

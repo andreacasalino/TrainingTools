@@ -9,14 +9,14 @@
 #include <TrainingTools/iterative/direction_optimizer/FixedStep.h>
 
 namespace train {
-void FixedStep::setDescendStep(const double step) {
+void FixedStep::setOptimizationStep(const double step) {
   if (step < 0) {
     throw Error("Negative step is invalid");
   }
   this->step = step;
 }
 
-void FixedStep::descend() {
+void FixedStep::optimize() {
   Vect delta = getDirection();
   delta *= step;
   setParameters(delta + getParameters());

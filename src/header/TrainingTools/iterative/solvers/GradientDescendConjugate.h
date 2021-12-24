@@ -61,7 +61,7 @@ class GradientDescendConjugate : public IterativeTrainer,
 protected:
   void updateDirection() override {
     Vect direction = this->getGradient();
-    direction *= -1.f;
+    direction *= -1.0;
     Vect correction = getGradient();
     correction *= this->getBeta();
     direction += correction;
