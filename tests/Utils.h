@@ -1,6 +1,7 @@
 #pragma once
 
 #include <TrainingTools/ParametersAware.h>
+#include <TrainingTools/Trainer.h>
 #include <gtest/gtest.h>
 #include <iostream>
 #include <vector>
@@ -44,6 +45,11 @@ public:
       EXPECT_LE(value, value_prev);
     }
     std::cout << std::endl;
+  }
+
+  void trainAndCheck(Trainer &solver) {
+    solver.train(*this);
+    checkEvolution();
   }
 
 private:

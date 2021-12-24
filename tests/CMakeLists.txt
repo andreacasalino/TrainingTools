@@ -23,8 +23,6 @@ function(MakeTest NAME)
   install(TARGETS ${NAME})
 endfunction()
 
-
-MakeTest(Test01-GradientDescendFixed)
-MakeTest(Test02-GradientDescend)
-MakeTest(Test03-GradientDescendConjugate)
-MakeTest(Test04-QuasiNewton)
+MakeTest(Test01-GradientDescend)
+MakeTest(Test02-GradientDescendConjugate)
+MakeTest(Test03-QuasiNewton)
