@@ -5,7 +5,7 @@
  * report any bug to andrecasa91@gmail.com.
  **/
 
-#include <TrainingTools/bases/ModelAware.h>
+#include <TrainingTools/ModelAware.h>
 
 namespace train {
 void ModelAware::initModel(ParametersAware &model) {

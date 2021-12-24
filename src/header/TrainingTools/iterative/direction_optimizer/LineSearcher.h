@@ -7,8 +7,8 @@
 
 #pragma once
 
-#include <TrainingTools/bases/ModelAware.h>
-#include <TrainingTools/interfaces/SearchDirectionAware.h>
+#include <TrainingTools/ModelAware.h>
+#include <TrainingTools/iterative/SearchDirectionAware.h>
 
 namespace train {
 class LineSearcher : public virtual ModelAware,
@@ -19,6 +19,6 @@ protected:
    * passed direction
    * @param the direction along which to search the optimum
    */
-  virtual void optimize() = 0;
+  virtual void descend() = 0;
 };
 } // namespace train

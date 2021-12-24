@@ -6,7 +6,7 @@
  **/
 
 #include <TrainingTools/Error.h>
-#include <TrainingTools/bases/IterativeTrainer.h>
+#include <TrainingTools/iterative/IterativeTrainer.h>
 #include <iostream>
 #include <math.h>
 #include <memory>
@@ -70,14 +70,14 @@ void IterativeTrainer::train_(ParametersAware &model) {
                 << std::endl;
     }
     TimeCounter counter(this->elapsed);
-    auto udpatedParameters = this->descend();
-    this->setParameters(udpatedParameters);
+    auto deltaParameters = getParameters();
+    this->descend();
     this->incrementIterations();
     if (l1Norm(getGradient()) < this->gradientTollerance) {
       break;
     }
-    if (l1Norm(getLastParameters() - getParameters()) <
-        this->weightsTollerance) {
+    deltaParameters -= getParameters();
+    if (l1Norm(deltaParameters) < this->weightsTollerance) {
       break;
     }
     this->updateDirection();

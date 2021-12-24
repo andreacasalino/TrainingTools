@@ -5,7 +5,7 @@
  * report any bug to andrecasa91@gmail.com.
  **/
 
-#include <TrainingTools/strategies/BFGS.h>
+#include <TrainingTools/iterative/hessian_approximators/BFGS.h>
 
 namespace train {
 std::unique_ptr<Matr> BFGS::updatedInvHessianApprox(const Vect &deltaParameters,

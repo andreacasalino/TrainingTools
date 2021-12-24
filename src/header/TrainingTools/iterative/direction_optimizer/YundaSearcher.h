@@ -7,8 +7,8 @@
 
 #pragma once
 
-#include <TrainingTools/bases/LineSearcher.h>
-#include <TrainingTools/interfaces/IterationsAware.h>
+#include <TrainingTools/iterative/IterationsAware.h>
+#include <TrainingTools/iterative/direction_optimizer/LineSearcher.h>
 
 namespace train {
 /**
@@ -18,7 +18,7 @@ namespace train {
  */
 class YundaSearcher : public LineSearcher, virtual public IterationsAware {
 protected:
-  Vect optimize(const Vect &direction) override;
+  void descend() override;
 
   double computeC1() const;
 };

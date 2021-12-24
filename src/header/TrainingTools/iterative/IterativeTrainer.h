@@ -7,10 +7,10 @@
 
 #pragma once
 
-#include <TrainingTools/bases/ModelAware.h>
-#include <TrainingTools/interfaces/IterationsAware.h>
-#include <TrainingTools/interfaces/SearchDirectionAware.h>
-#include <TrainingTools/interfaces/Trainer.h>
+#include <TrainingTools/ModelAware.h>
+#include <TrainingTools/Trainer.h>
+#include <TrainingTools/iterative/IterationsAware.h>
+#include <TrainingTools/iterative/direction_optimizer/LineSearcher.h>
 #include <chrono>
 
 namespace train {
@@ -24,7 +24,7 @@ namespace train {
 class IterativeTrainer : public Trainer,
                          public virtual ModelAware,
                          public virtual IterationsAware,
-                         public virtual SearchDirectionAware {
+                         public virtual LineSearcher {
 public:
   void train_(ParametersAware &model) override;
 
@@ -61,22 +61,10 @@ public:
     return this->elapsed;
   };
 
-protected:
-  /**
-   * @brief called at every iteration to improve the weights
-   */
-  virtual Vect descend() = 0;
-
-  const Vect &getDirection() const { return *direction; };
-  void setDirection(const Vect &dir) {
-    direction = std::make_unique<Vect>(dir);
-  };
-
 private:
   double weightsTollerance = 0.005f;
   double gradientTollerance = 0.005f;
   bool printAdvnc = false;
   std::chrono::milliseconds elapsed = std::chrono::milliseconds(0);
-  std::unique_ptr<Vect> direction;
 };
 } // namespace train

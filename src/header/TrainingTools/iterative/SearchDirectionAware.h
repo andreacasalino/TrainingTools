@@ -7,7 +7,7 @@
 
 #pragma once
 
-#include <TrainingTools/interfaces/ParametersAware.h>
+#include <TrainingTools/ParametersAware.h>
 #include <memory>
 
 namespace train {

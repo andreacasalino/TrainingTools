@@ -5,7 +5,7 @@
  * report any bug to andrecasa91@gmail.com.
  **/
 
-#include <TrainingTools/strategies/YundaSearcher.h>
+#include <TrainingTools/iterative/direction_optimizer/YundaSearcher.h>
 #include <math.h>
 
 namespace train {
@@ -21,11 +21,12 @@ double YundaSearcher::computeC1() const {
   return 0.0001 * (1.0 - temp) - temp;
 }
 
-Vect YundaSearcher::optimize(const Vect &direction) {
+void YundaSearcher::descend() {
   double alfa = ALFA_MAX;
   double c1 = this->computeC1();
   std::size_t j = 0;
   double mu = 0.f;
+  const auto &direction = getDirection();
   double gdOld = getLastGradient().dot(direction);
   while ((j < ITER_MAX) && (alfa >= ALFA_MIN) && (alfa <= ALFA_MAX)) {
     // check well computations here

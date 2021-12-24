@@ -7,7 +7,7 @@
 
 #pragma once
 
-#include <TrainingTools/bases/HessianApproximator.h>
+#include <TrainingTools/iterative/hessian_approximators/HessianApproximator.h>
 
 namespace train {
 /**

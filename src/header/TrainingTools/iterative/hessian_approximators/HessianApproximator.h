@@ -7,7 +7,7 @@
 
 #pragma once
 
-#include <TrainingTools/bases/ModelAware.h>
+#include <TrainingTools/ModelAware.h>
 #include <memory>
 
 namespace train {
@@ -23,6 +23,7 @@ protected:
   void updateInvHessianApprox();
   void initInvHessianApprox(Eigen::Index size) {
     invHessianApprox = std::make_unique<Matr>(size, size);
+    invHessianApprox->setIdentity();
   };
 
   const Matr &getInvHessianApprox() const { return *invHessianApprox; }

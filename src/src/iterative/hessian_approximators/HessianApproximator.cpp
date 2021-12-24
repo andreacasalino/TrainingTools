@@ -5,7 +5,7 @@
  * report any bug to andrecasa91@gmail.com.
  **/
 
-#include <TrainingTools/bases/HessianApproximator.h>
+#include <TrainingTools/iterative/hessian_approximators/HessianApproximator.h>
 
 namespace train {
 void HessianApproximator::updateInvHessianApprox() {
