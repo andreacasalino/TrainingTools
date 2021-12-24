@@ -15,11 +15,11 @@
 
 namespace train {
 /**
- * @brief Base class for every iterative tuner.
+ * @brief Base class for every iterative trainer.
  * The iterations are stopped in case:
     - the l1 norm of the gradient is below a certain threshold
-    - the l1 of the difference between the old values of the weights and the new
- ones is below a certain threshold
+    - the l1 norm of the difference between the old values of the parameters and
+ the new ones is below a certain threshold
  */
 class IterativeTrainer : public Trainer,
                          public virtual ModelAware,
@@ -29,12 +29,12 @@ public:
   void train_(ParametersAware &model) override;
 
   /**
-   * @brief Set the threshold to consider for the weights improvements
+   * @brief Set the threshold to consider for the parameters improvement
    * in order to decide whether to arrest the iterations or not.
    * @param the minimum l1 norm acceptable value
    * @throw when the passed value is negative
    */
-  void setWeightsTollerance(const double value);
+  void setParametersTollerance(const double value);
   /**
    * @brief Set the threshold to consider for the gradient
    * in order to decide whether to arrest the iterations or not.
@@ -62,8 +62,8 @@ public:
   };
 
 private:
-  double weightsTollerance = 0.005f;
-  double gradientTollerance = 0.005f;
+  double parametersTollerance = 0.005;
+  double gradientTollerance = 0.005;
   bool printAdvnc = false;
   std::chrono::milliseconds elapsed = std::chrono::milliseconds(0);
 };

@@ -13,8 +13,8 @@
 
 namespace train {
 /**
- * @brief At every iteration the minimum along the gradient direction is
- * searched
+ * @brief At every iteration the minimum along the (negative) gradient direction
+ * is searched
  */
 template <typename LineSearcherT = YundaSearcher>
 class GradientDescend : public IterativeTrainer, public LineSearcherT {

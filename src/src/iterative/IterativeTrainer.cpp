@@ -12,11 +12,11 @@
 #include <memory>
 
 namespace train {
-void IterativeTrainer::setWeightsTollerance(const double value) {
+void IterativeTrainer::setParametersTollerance(const double value) {
   if (value < 0) {
     throw Error("Negative tollerance value");
   }
-  this->weightsTollerance = value;
+  this->parametersTollerance = value;
 };
 
 void IterativeTrainer::setGradientTollerance(const double value) {
@@ -28,7 +28,7 @@ void IterativeTrainer::setGradientTollerance(const double value) {
 
 namespace {
 double l1Norm(const Vect &v) {
-  double res = 0.f;
+  double res = 0;
   const double *data = v.data();
   for (std::size_t k = 0; k < v.size(); ++k) {
     if (abs(data[k]) > res) {
@@ -77,7 +77,7 @@ void IterativeTrainer::train_(ParametersAware &model) {
       break;
     }
     deltaParameters -= getParameters();
-    if (l1Norm(deltaParameters) < this->weightsTollerance) {
+    if (l1Norm(deltaParameters) < this->parametersTollerance) {
       break;
     }
     this->updateDirection();
