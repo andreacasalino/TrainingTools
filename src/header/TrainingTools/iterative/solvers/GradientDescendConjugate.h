@@ -7,8 +7,9 @@
 
 #pragma once
 
-#include <TrainingTools/bases/IterativeTrainer.h>
-#include <TrainingTools/strategies/YundaSearcher.h>
+#include <TrainingTools/iterative/IterativeTrainer.h>
+#include <TrainingTools/iterative/direction_optimizer/FixedStep.h>
+#include <TrainingTools/iterative/direction_optimizer/YundaSearcher.h>
 
 namespace train {
 /**
@@ -16,11 +17,10 @@ namespace train {
  * https://www.caam.rice.edu/~zhang/caam454/pdf/cgsurvey.pdf </a> and the
  * possible strategies to compute beta
  */
-class BetaStrategy : virtual public ModelAware {
+class BetaStrategy : virtual public ModelAware,
+                     virtual public SearchDirectionAware {
 protected:
   virtual float getBeta() const = 0;
-
-  Vect lastDirection;
 };
 
 class FletcherReeves : public BetaStrategy {
@@ -65,26 +65,10 @@ protected:
     Vect correction = getGradient();
     correction *= this->getBeta();
     direction += correction;
-    this->minimize(direction);
-    this->lastDirection = std::move(direction);
+    setDirection(direction);
   };
   void initDirection() override { setDirection(getGradient()); };
-  Vect descend() override { return this->optimize(getDirection()); };
-
-  // void reset() override {
-  //   this->IterativeTrainer::reset();
-  //   this->lastDirection = this->getGradient();
-  //   this->lastDirection *= -1.f;
-  // }
-
-  // void descend() override {
-  //   Vect direction = this->getGradient();
-  //   direction *= -1.f;
-  //   Vect correction = this->lastDirection;
-  //   correction *= this->getBeta();
-  //   direction += correction;
-  //   this->minimize(direction);
-  //   this->lastDirection = std::move(direction);
-  // };
 };
+
+using GradientDescendConjugateFixed = GradientDescendConjugate<FixedStep>;
 } // namespace train

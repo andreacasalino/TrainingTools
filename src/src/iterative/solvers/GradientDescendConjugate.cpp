@@ -5,30 +5,30 @@
  * report any bug to andrecasa91@gmail.com.
  **/
 
-#include <TrainingTools/GradientDescendConjugate.h>
+#include <TrainingTools/iterative/solvers/GradientDescendConjugate.h>
 
 namespace train {
 float FletcherReeves::getBeta() const {
-  Vect grad = getModel().getGradient();
-  const auto &last_grad = getLastGrad();
+  Vect grad = getGradient();
+  const auto &last_grad = getLastGradient();
   return grad.dot(grad) / last_grad.dot(last_grad);
 }
 
 float PolakRibiere::getBeta() const {
-  Vect grad = getModel().getGradient();
-  const auto &last_grad = getLastGrad();
+  Vect grad = getGradient();
+  const auto &last_grad = getLastGradient();
   return grad.dot(grad - last_grad) / last_grad.dot(last_grad);
 }
 
 float HestenesStiefel::getBeta() const {
-  Vect grad = getModel().getGradient();
-  Vect deltaGrad = grad - getLastGrad();
-  return grad.dot(deltaGrad) / getLastGrad().dot(deltaGrad);
+  Vect grad = getGradient();
+  Vect deltaGrad = grad - getLastGradient();
+  return grad.dot(deltaGrad) / getLastGradient().dot(deltaGrad);
 }
 
 float DaiYuan::getBeta() const {
-  Vect grad = getModel().getGradient();
-  const auto &last_grad = getLastGrad();
+  Vect grad = getGradient();
+  const auto &last_grad = getLastGradient();
   return grad.dot(grad) / last_grad.dot(grad - last_grad);
 }
 } // namespace train

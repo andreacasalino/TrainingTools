@@ -6,7 +6,7 @@
  **/
 
 #include <TrainingTools/Error.h>
-#include <TrainingTools/interfaces/IterationsAware.h>
+#include <TrainingTools/iterative/IterationsAware.h>
 
 namespace train {
 void IterationsAware::setMaxIterations(const std::size_t iter) {
