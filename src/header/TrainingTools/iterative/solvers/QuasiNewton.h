@@ -7,10 +7,9 @@
 
 #pragma once
 
-#include <TrainingTools/bases/IterativeTrainer.h>
-#include <TrainingTools/strategies/BFGS.h>
-#include <TrainingTools/strategies/YundaSearcher.h>
-
+#include <TrainingTools/iterative/IterativeTrainer.h>
+#include <TrainingTools/iterative/direction_optimizer/YundaSearcher.h>
+#include <TrainingTools/iterative/hessian_approximators/BFGS.h>
 namespace train {
 template <typename LineSearcherT = YundaSearcher,
           typename HessianApproximatorT = BFGS>
@@ -32,9 +31,9 @@ protected:
     setDirection(direction);
   };
   void initDirection() override {
-    setDirection(getGradient());
-    this->initInvHessianApprox(getParameters().size());
+    auto gradient = getGradient();
+    setDirection(gradient);
+    this->initInvHessianApprox(gradient.size());
   };
-  Vect descend() override { return this->optimize(getDirection()); };
 };
 } // namespace train

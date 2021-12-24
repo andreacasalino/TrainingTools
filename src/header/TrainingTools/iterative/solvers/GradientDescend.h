@@ -7,8 +7,9 @@
 
 #pragma once
 
-#include <TrainingTools/bases/IterativeTrainer.h>
-#include <TrainingTools/strategies/YundaSearcher.h>
+#include <TrainingTools/iterative/IterativeTrainer.h>
+#include <TrainingTools/iterative/direction_optimizer/FixedStep.h>
+#include <TrainingTools/iterative/direction_optimizer/YundaSearcher.h>
 
 namespace train {
 /**
@@ -23,6 +24,7 @@ class GradientDescend : public IterativeTrainer, public LineSearcherT {
 protected:
   void updateDirection() override { setDirection(getGradient()); };
   void initDirection() override { updateDirection(); };
-  Vect descend() override { return this->optimize(getDirection()); };
 };
+
+using GradientDescendFixed = GradientDescend<FixedStep>;
 } // namespace train
