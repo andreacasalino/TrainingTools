@@ -27,14 +27,14 @@ protected:
   void updateDirection() override {
     this->updateInvHessianApprox();
     Vect direction = this->getGradient();
-    direction = getInvHessianApprox() * direction;
+    direction = this->getInvHessianApprox() * direction;
     direction *= -1.0;
     setDirection(direction);
   };
   void initDirection() override {
+    auto gradient = getGradient();
     this->initInvHessianApprox(gradient.size());
-    auto gradient = -getGradient();
-    setDirection(gradient);
+    setDirection(-gradient);
   };
 };
 
