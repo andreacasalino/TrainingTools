@@ -3,32 +3,32 @@
 
 #include <iostream>
 
-TEST_F(TestFunction2d, GradientDescendConjugateFixed) {
+TEST_F(MediumTestFunction2d, GradientDescendConjugateFixed) {
   train::GradientDescendConjugateFixed solver;
   trainAndCheck(solver);
 }
 
-TEST_F(TestFunction2d, GradientDescendConjugate) {
+TEST_F(MediumTestFunction2d, GradientDescendConjugate) {
   train::GradientDescendConjugate solver;
   trainAndCheck(solver);
 }
 
-TEST_F(TestFunction4d, GradientDescendConjugateFixed) {
+TEST_F(MediumTestFunction4d, GradientDescendConjugateFixed) {
   train::GradientDescendConjugateFixed solver;
   trainAndCheck(solver);
 }
 
-TEST_F(TestFunction4d, GradientDescendConjugate) {
+TEST_F(MediumTestFunction4d, GradientDescendConjugate) {
   train::GradientDescendConjugate solver;
   trainAndCheck(solver);
 }
 
-TEST_F(TestFunction10d, GradientDescendConjugateFixed) {
+TEST_F(MediumTestFunction10d, GradientDescendConjugateFixed) {
   train::GradientDescendConjugateFixed solver;
   trainAndCheck(solver);
 }
 
-TEST_F(TestFunction10d, GradientDescendConjugate) {
+TEST_F(MediumTestFunction10d, GradientDescendConjugate) {
   train::GradientDescendConjugate solver;
   trainAndCheck(solver);
 }

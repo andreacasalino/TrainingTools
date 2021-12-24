@@ -3,32 +3,32 @@
 
 #include <iostream>
 
-TEST_F(TestFunction2d, QuasiNewtonFixed) {
+TEST_F(MediumTestFunction2d, QuasiNewtonFixed) {
   train::QuasiNewtonFixed solver;
   trainAndCheck(solver);
 }
 
-TEST_F(TestFunction2d, QuasiNewton) {
+TEST_F(MediumTestFunction2d, QuasiNewton) {
   train::QuasiNewton solver;
   trainAndCheck(solver);
 }
 
-TEST_F(TestFunction4d, QuasiNewtonFixed) {
+TEST_F(MediumTestFunction4d, QuasiNewtonFixed) {
   train::QuasiNewtonFixed solver;
   trainAndCheck(solver);
 }
 
-TEST_F(TestFunction4d, QuasiNewton) {
+TEST_F(MediumTestFunction4d, QuasiNewton) {
   train::QuasiNewton solver;
   trainAndCheck(solver);
 }
 
-TEST_F(TestFunction10d, QuasiNewtonFixed) {
+TEST_F(MediumTestFunction10d, QuasiNewtonFixed) {
   train::QuasiNewtonFixed solver;
   trainAndCheck(solver);
 }
 
-TEST_F(TestFunction10d, QuasiNewton) {
+TEST_F(MediumTestFunction10d, QuasiNewton) {
   train::QuasiNewton solver;
   trainAndCheck(solver);
 }
