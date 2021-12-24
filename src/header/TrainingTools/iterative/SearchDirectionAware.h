@@ -20,6 +20,7 @@ protected:
 
   virtual void initDirection() = 0;
   virtual void updateDirection() = 0;
+
   void setDirection(const Vect &dir) {
     last_direction = std::move(direction);
     direction = std::make_unique<Vect>(dir);
