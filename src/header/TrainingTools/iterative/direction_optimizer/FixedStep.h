@@ -18,6 +18,6 @@ protected:
   void optimize() override;
 
 private:
-  double step;
+  double step = 0.1;
 };
 } // namespace train

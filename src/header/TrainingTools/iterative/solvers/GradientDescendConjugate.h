@@ -67,7 +67,7 @@ protected:
     direction += correction;
     setDirection(direction);
   };
-  void initDirection() override { setDirection(getGradient()); };
+  void initDirection() override { setDirection(-getGradient()); };
 };
 
 using GradientDescendConjugateFixed = GradientDescendConjugate<FixedStep>;
