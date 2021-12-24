@@ -30,7 +30,7 @@ namespace {
 double l1Norm(const Vect &v) {
   double res = 0;
   const double *data = v.data();
-  for (std::size_t k = 0; k < v.size(); ++k) {
+  for (std::size_t k = 0; k < static_cast<std::size_t>(v.size()); ++k) {
     if (abs(data[k]) > res) {
       res = abs(data[k]);
     }
