@@ -9,8 +9,8 @@
 
 namespace train {
 void HessianApproximator::updateInvHessianApprox() {
-  auto deltaPar = getParameters() - getLastParameters();
-  auto deltaGrad = getGradient() - getLastGradient();
+  Vect deltaPar = getParameters() - getLastParameters();
+  Vect deltaGrad = getGradient() - getLastGradient();
   this->invHessianApprox = this->updatedInvHessianApprox(deltaPar, deltaGrad);
 }
 } // namespace train

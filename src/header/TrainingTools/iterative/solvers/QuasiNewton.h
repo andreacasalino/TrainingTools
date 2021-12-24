@@ -32,7 +32,7 @@ protected:
     setDirection(direction);
   };
   void initDirection() override {
-    auto gradient = getGradient();
+    Vect gradient = getGradient();
     this->initInvHessianApprox(gradient.size());
     setDirection(-gradient);
   };

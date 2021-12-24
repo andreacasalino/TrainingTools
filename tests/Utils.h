@@ -30,6 +30,8 @@ public:
       }
       caso = !caso;
     }
+    std::cout << "Initial point: " << getParameters().transpose() << std::endl
+              << std::endl;
   }
 
   const std::vector<Vect> &getParametersEvolution() const { return evolution; }

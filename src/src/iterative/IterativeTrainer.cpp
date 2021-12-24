@@ -71,7 +71,7 @@ void IterativeTrainer::train_(ParametersAware &model) {
                 << getMaxIterations() << std::endl;
     }
     TimeCounter counter(this->elapsed);
-    auto deltaParameters = getParameters();
+    Vect deltaParameters = getParameters();
     this->optimize();
     if (l1Norm(getGradient()) < this->gradientTollerance) {
       break;
