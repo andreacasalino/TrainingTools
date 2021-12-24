@@ -8,6 +8,7 @@
 #pragma once
 
 #include <TrainingTools/iterative/IterativeTrainer.h>
+#include <TrainingTools/iterative/direction_optimizer/FixedStep.h>
 #include <TrainingTools/iterative/direction_optimizer/YundaSearcher.h>
 #include <TrainingTools/iterative/hessian_approximators/BFGS.h>
 namespace train {
@@ -36,4 +37,6 @@ protected:
     setDirection(gradient);
   };
 };
+
+using QuasiNewtonFixed = QuasiNewton<FixedStep>;
 } // namespace train

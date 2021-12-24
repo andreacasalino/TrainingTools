@@ -20,27 +20,27 @@ namespace train {
 class BetaStrategy : virtual public ModelAware,
                      virtual public SearchDirectionAware {
 protected:
-  virtual float getBeta() const = 0;
+  virtual double getBeta() const = 0;
 };
 
 class FletcherReeves : public BetaStrategy {
 protected:
-  float getBeta() const override;
+  double getBeta() const override;
 };
 
 class PolakRibiere : public BetaStrategy {
 protected:
-  float getBeta() const override;
+  double getBeta() const override;
 };
 
 class HestenesStiefel : public BetaStrategy {
 protected:
-  float getBeta() const override;
+  double getBeta() const override;
 };
 
 class DaiYuan : public BetaStrategy {
 protected:
-  float getBeta() const override;
+  double getBeta() const override;
 };
 
 /**
@@ -62,7 +62,7 @@ protected:
   void updateDirection() override {
     Vect direction = this->getGradient();
     direction *= -1.0;
-    Vect correction = getGradient();
+    Vect correction = getLastDirection();
     correction *= this->getBeta();
     direction += correction;
     setDirection(direction);

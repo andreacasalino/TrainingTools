@@ -16,7 +16,8 @@ namespace train {
  * http://www.optimization-online.org/DB_FILE/2016/07/5560.pdf (Algorithm A) is
  * implemented by this class.
  */
-class YundaSearcher : public LineSearcher, virtual public IterationsAware {
+class YundaSearcher : virtual public LineSearcher,
+                      virtual public IterationsAware {
 protected:
   void optimize() override;
 

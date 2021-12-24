@@ -29,7 +29,6 @@ public:
       }
       caso = !caso;
     }
-    evolution.back() << 0.9, -0.85;
   }
 
   const std::vector<Vect> &getParametersEvolution() const { return evolution; }
@@ -51,3 +50,7 @@ private:
   std::vector<Vect> evolution;
 };
 } // namespace train::test
+
+using TestFunction2d = train::test::TestFunction<2>;
+using TestFunction4d = train::test::TestFunction<4>;
+using TestFunction10d = train::test::TestFunction<10>;

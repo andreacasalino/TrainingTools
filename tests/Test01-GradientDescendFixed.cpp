@@ -3,10 +3,6 @@
 
 #include <iostream>
 
-using TestFunction2d = train::test::TestFunction<2>;
-using TestFunction4d = train::test::TestFunction<4>;
-using TestFunction10d = train::test::TestFunction<10>;
-
 TEST_F(TestFunction2d, GradientDescendFixed) {
   train::GradientDescendFixed solver;
   solver.train(*this);

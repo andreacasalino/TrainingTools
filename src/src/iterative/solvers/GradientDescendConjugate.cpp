@@ -8,27 +8,25 @@
 #include <TrainingTools/iterative/solvers/GradientDescendConjugate.h>
 
 namespace train {
-float FletcherReeves::getBeta() const {
-  Vect grad = getGradient();
-  const auto &last_grad = getLastGradient();
-  return grad.dot(grad) / last_grad.dot(last_grad);
+double FletcherReeves::getBeta() const {
+  Vect grad = this->getGradient();
+  return grad.dot(grad) / getLastGradient().dot(getLastGradient());
 }
 
-float PolakRibiere::getBeta() const {
-  Vect grad = getGradient();
-  const auto &last_grad = getLastGradient();
-  return grad.dot(grad - last_grad) / last_grad.dot(last_grad);
+double PolakRibiere::getBeta() const {
+  Vect grad = this->getGradient();
+  return grad.dot(grad - getLastGradient()) /
+         getLastGradient().dot(getLastGradient());
 }
 
-float HestenesStiefel::getBeta() const {
-  Vect grad = getGradient();
+double HestenesStiefel::getBeta() const {
+  Vect grad = this->getGradient();
   Vect deltaGrad = grad - getLastGradient();
-  return grad.dot(deltaGrad) / getLastGradient().dot(deltaGrad);
+  return grad.dot(deltaGrad) / getLastDirection().dot(deltaGrad);
 }
 
-float DaiYuan::getBeta() const {
-  Vect grad = getGradient();
-  const auto &last_grad = getLastGradient();
-  return grad.dot(grad) / last_grad.dot(grad - last_grad);
+double DaiYuan::getBeta() const {
+  Vect grad = this->getGradient();
+  return grad.dot(grad) / getLastDirection().dot(grad - getLastGradient());
 }
 } // namespace train
