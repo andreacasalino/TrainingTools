@@ -10,16 +10,20 @@ using TestFunction10d = train::test::TestFunction<10>;
 TEST_F(TestFunction2d, GradientDescendFixed) {
   train::GradientDescendFixed solver;
   solver.train(*this);
-
-  for (const auto &value : getFunctionEvolution()) {
-    std::cout << value << std::endl;
-  }
-  std::cout << std::endl;
+  checkEvolution();
 }
 
-TEST_F(TestFunction4d, GradientDescendFixed) {}
+TEST_F(TestFunction4d, GradientDescendFixed) {
+  train::GradientDescendFixed solver;
+  solver.train(*this);
+  checkEvolution();
+}
 
-TEST_F(TestFunction10d, GradientDescendFixed) {}
+TEST_F(TestFunction10d, GradientDescendFixed) {
+  train::GradientDescendFixed solver;
+  solver.train(*this);
+  checkEvolution();
+}
 
 int main(int argc, char *argv[]) {
   ::testing::InitGoogleTest(&argc, argv);

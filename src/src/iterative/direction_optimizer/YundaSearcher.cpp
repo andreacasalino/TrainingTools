@@ -29,8 +29,8 @@ void YundaSearcher::optimize() {
   const auto &direction = getDirection();
   double gdOld = getLastGradient().dot(direction);
   while ((j < ITER_MAX) && (alfa >= ALFA_MIN) && (alfa <= ALFA_MAX)) {
-    setParameters(getLastParameters() + direction * alfa);
-    double gd = getGradient().dot(direction);
+    setParameters(getParameters() + direction * alfa);
+    double gd = getLastGradient().dot(direction);
     // check condition in equation 7
     if (gd > gdOld * c1) {
       alfa = 0.5 * (mu + alfa);

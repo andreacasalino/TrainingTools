@@ -2,6 +2,7 @@
 
 #include <TrainingTools/ParametersAware.h>
 #include <gtest/gtest.h>
+#include <iostream>
 #include <vector>
 
 namespace train::test {
@@ -18,17 +19,32 @@ public:
 
   void SetUp() override {
     evolution.emplace_back(SpaceSize);
-    evolution.back().setRandom();
+    evolution.back().setOnes();
+    bool caso = true;
+    for (Eigen::Index i = 0; i < SpaceSize; ++i) {
+      if (caso) {
+        evolution.back()(i) = 0.9;
+      } else {
+        evolution.back()(i) = -0.9;
+      }
+      caso = !caso;
+    }
+    evolution.back() << 0.9, -0.85;
   }
 
   const std::vector<Vect> &getParametersEvolution() const { return evolution; }
-  std::vector<double> getFunctionEvolution() const {
-    std::vector<double> result;
-    result.reserve(evolution.size());
-    for (const auto &point : evolution) {
-      result.emplace_back(0.5 * point.dot(point));
+
+  void checkEvolution() const {
+    auto it_ev = evolution.begin();
+    auto it_prev = it_ev;
+    ++it_ev;
+    for (it_ev; it_ev != evolution.end(); ++it_ev, ++it_prev) {
+      double value = 0.5 * it_ev->dot(*it_ev);
+      std::cout << value << std::endl;
+      double value_prev = 0.5 * it_prev->dot(*it_prev);
+      EXPECT_LE(value, value_prev);
     }
-    return result;
+    std::cout << std::endl;
   }
 
 private:
