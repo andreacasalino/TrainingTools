@@ -22,11 +22,11 @@ double PolakRibiere::getBeta() const {
 double HestenesStiefel::getBeta() const {
   Vect grad = this->getGradient();
   Vect deltaGrad = grad - getLastGradient();
-  return grad.dot(deltaGrad) / getLastDirection().dot(deltaGrad);
+  return grad.dot(deltaGrad) / getDirection().dot(deltaGrad);
 }
 
 double DaiYuan::getBeta() const {
   Vect grad = this->getGradient();
-  return grad.dot(grad) / getLastDirection().dot(grad - getLastGradient());
+  return grad.dot(grad) / getDirection().dot(grad - getLastGradient());
 }
 } // namespace train

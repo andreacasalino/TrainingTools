@@ -33,6 +33,23 @@ TEST_F(MediumTestFunction10d, GradientDescendConjugate) {
   trainAndCheck(solver);
 }
 
+TEST_F(MediumTestFunction10d, GradientDescendConjugate_PolakRibiere) {
+  train::GradientDescendConjugate<train::YundaSearcher, train::PolakRibiere>
+      solver;
+  trainAndCheck(solver);
+}
+
+TEST_F(MediumTestFunction10d, GradientDescendConjugate_HestenesStiefel) {
+  train::GradientDescendConjugate<train::YundaSearcher, train::HestenesStiefel>
+      solver;
+  trainAndCheck(solver);
+}
+
+TEST_F(MediumTestFunction10d, GradientDescendConjugate_DaiYuan) {
+  train::GradientDescendConjugate<train::YundaSearcher, train::DaiYuan> solver;
+  trainAndCheck(solver);
+}
+
 int main(int argc, char *argv[]) {
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
