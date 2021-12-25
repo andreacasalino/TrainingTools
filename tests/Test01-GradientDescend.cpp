@@ -8,7 +8,7 @@ TEST_F(EasyTestFunction2d, GradientDescendFixed) {
   trainAndCheck(solver);
 }
 
-TEST_F(EasyTestFunction2d, GradientDescend) {
+TEST_F(MediumTestFunction2d, GradientDescend) {
   train::GradientDescend solver;
   trainAndCheck(solver);
 }
@@ -18,7 +18,7 @@ TEST_F(EasyTestFunction4d, GradientDescendFixed) {
   trainAndCheck(solver);
 }
 
-TEST_F(EasyTestFunction4d, GradientDescend) {
+TEST_F(MediumTestFunction4d, GradientDescend) {
   train::GradientDescend solver;
   trainAndCheck(solver);
 }
@@ -28,7 +28,7 @@ TEST_F(EasyTestFunction10d, GradientDescendFixed) {
   trainAndCheck(solver);
 }
 
-TEST_F(EasyTestFunction10d, GradientDescend) {
+TEST_F(MediumTestFunction10d, GradientDescend) {
   train::GradientDescend solver;
   trainAndCheck(solver);
 }

@@ -29,19 +29,44 @@ public:
 
   Vect getGradient() const override { return parameters; };
 };
-
 template <std::size_t SpaceSize>
 class MediumFunction : public TestFunctionConcrete {
 public:
+  MediumFunction() {
+    // sample a random rotation matrix
+    Matr rotation(SpaceSize, SpaceSize);
+    rotation.setRandom();
+    rotation.col(0) /= rotation.col(0).norm();
+    for (Eigen::Index i = 1; i < SpaceSize; ++i) {
+      for (Eigen::Index i2 = 0; i2 < i; ++i2) {
+        rotation.col(i) -=
+            rotation.col(i2).dot(rotation.col(i)) * rotation.col(i2);
+      }
+      rotation.col(i) /= rotation.col(i).norm();
+    }
+    A = Matr(SpaceSize, SpaceSize);
+    A.setZero();
+    bool caso = true;
+    for (Eigen::Index i = 0; i < SpaceSize; ++i) {
+      if (caso) {
+        A(i, i) = 1.0;
+      } else {
+        A(i, i) = 0.5;
+      }
+      caso = !caso;
+    }
+    A = rotation * A * rotation.transpose();
+  }
+
   std::size_t spaceSize() const override { return SpaceSize; }
   double evaluate(const Vect &point) const override {
-    return 0.1 * cos(point.norm()) + 0.5 * point.dot(point);
+    return 0.5 * point.transpose() * A * point;
   };
 
-  Vect getGradient() const override {
-    double norm = parameters.norm();
-    return ((1.0 - 0.1 * sin(norm)) / norm) * parameters;
-  };
+  Vect getGradient() const override { return A * getParameters(); };
+
+private:
+  Matr A;
 };
 
 template <typename FunctionT>
@@ -82,13 +107,16 @@ public:
     auto it_ev = evolution.begin();
     auto it_prev = it_ev;
     ++it_ev;
-    for (it_ev; it_ev != evolution.end(); ++it_ev, ++it_prev) {
+    std::size_t iter = 0;
+    for (it_ev; it_ev != evolution.end(); ++it_ev, ++it_prev, ++iter) {
       double value = function_ptr->evaluate(*it_ev);
-      std::cout << value << std::endl;
+      std::cout << "it-" << iter << ' ' << it_ev->transpose() << " -> " << value
+                << std::endl;
       double value_prev = function_ptr->evaluate(*it_prev);
       EXPECT_LE(value, value_prev);
     }
     std::cout << std::endl;
+    EXPECT_GE(evolution.front().norm(), evolution.back().norm());
   }
 
   void trainAndCheck(Trainer &solver) {

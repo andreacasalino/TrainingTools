@@ -3,7 +3,7 @@
 
 #include <iostream>
 
-TEST_F(MediumTestFunction2d, GradientDescendConjugateFixed) {
+TEST_F(EasyTestFunction2d, GradientDescendConjugateFixed) {
   train::GradientDescendConjugateFixed solver;
   trainAndCheck(solver);
 }
@@ -13,7 +13,7 @@ TEST_F(MediumTestFunction2d, GradientDescendConjugate) {
   trainAndCheck(solver);
 }
 
-TEST_F(MediumTestFunction4d, GradientDescendConjugateFixed) {
+TEST_F(EasyTestFunction4d, GradientDescendConjugateFixed) {
   train::GradientDescendConjugateFixed solver;
   trainAndCheck(solver);
 }
@@ -23,7 +23,7 @@ TEST_F(MediumTestFunction4d, GradientDescendConjugate) {
   trainAndCheck(solver);
 }
 
-TEST_F(MediumTestFunction10d, GradientDescendConjugateFixed) {
+TEST_F(EasyTestFunction10d, GradientDescendConjugateFixed) {
   train::GradientDescendConjugateFixed solver;
   trainAndCheck(solver);
 }
