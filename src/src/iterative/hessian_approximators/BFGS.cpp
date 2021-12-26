@@ -14,9 +14,7 @@ std::unique_ptr<Matr> BFGS::updatedInvHessianApprox(const Vect &deltaParameters,
   Matr V = deltaGradient * deltaParameters.transpose();
   V *= -rho;
   V += Matr::Identity(deltaParameters.size(), deltaParameters.size());
-  Matr Vtrasp = deltaParameters * deltaGradient.transpose();
-  Vtrasp *= -rho;
-  Vtrasp += Matr::Identity(deltaParameters.size(), deltaParameters.size());
+  Matr Vtrasp = V.transpose();
 
   std::unique_ptr<Matr> new_hessian =
       std::make_unique<Matr>(Vtrasp * getInvHessianApprox() * V);
