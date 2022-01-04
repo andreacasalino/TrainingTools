@@ -16,6 +16,8 @@ protected:
   void initModel(ParametersAware &model);
   void resetModel();
 
+  const ParametersAware *getModel() const { return model; }
+
   Vect getParameters() const override { return this->model->getParameters(); };
   void setParameters(const Vect &parameters) override;
 
