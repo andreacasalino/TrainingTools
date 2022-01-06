@@ -27,10 +27,11 @@ void YundaSearcher::optimize() {
   std::size_t j = 0;
   double mu = 0;
   const auto &direction = getDirection();
-  double gdOld = getLastGradient().dot(direction);
+  double gdOld = -getLastGradient().dot(direction);
+  Vect initialParameters = getParameters();
   while ((j < ITER_MAX) && (alfa >= ALFA_MIN) && (alfa <= ALFA_MAX)) {
-    setParameters(getParameters() + direction * alfa);
-    double gd = getGradient().dot(direction);
+    setParameters(initialParameters + direction * alfa);
+    double gd = -getGradient().dot(direction);
     // check condition in equation 7
     if (gd > gdOld * c1) {
       alfa = 0.5 * (mu + alfa);
