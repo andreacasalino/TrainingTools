@@ -24,10 +24,10 @@ class EasyFunction : public TestFunctionConcrete {
 public:
   std::size_t spaceSize() const override { return SpaceSize; }
   double evaluate(const Vect &point) const override {
-    return 0.5 * point.dot(point);
+    return -0.5 * point.dot(point);
   };
 
-  Vect getGradient() const override { return parameters; };
+  Vect getGradient() const override { return -parameters; };
 };
 template <std::size_t SpaceSize>
 class MediumFunction : public TestFunctionConcrete {
@@ -49,9 +49,9 @@ public:
     bool caso = true;
     for (Eigen::Index i = 0; i < SpaceSize; ++i) {
       if (caso) {
-        A(i, i) = 1.0;
+        A(i, i) = -0.6;
       } else {
-        A(i, i) = 0.5;
+        A(i, i) = -0.25;
       }
       caso = !caso;
     }
@@ -101,7 +101,7 @@ public:
 
   const std::vector<Vect> &getParametersEvolution() const { return evolution; }
 
-  void checkEvolution() {
+  void checkEvolution(bool strict) {
     const TestFunctionConcrete *function_ptr =
         dynamic_cast<const TestFunctionConcrete *>(function.get());
     auto it_ev = evolution.begin();
@@ -113,15 +113,23 @@ public:
       std::cout << "it-" << iter << ' ' << it_ev->transpose() << " -> " << value
                 << std::endl;
       double value_prev = function_ptr->evaluate(*it_prev);
-      EXPECT_LE(value, value_prev);
+      if (strict) {
+        EXPECT_GE(value, value_prev);
+      }
     }
     std::cout << std::endl;
     EXPECT_GE(evolution.front().norm(), evolution.back().norm());
+    EXPECT_LE(evolution.back().norm(), 0.25);
   }
 
   void trainAndCheck(Trainer &solver) {
     solver.train(*this);
-    checkEvolution();
+    checkEvolution(false);
+  }
+
+  void trainAndCheckStrict(Trainer &solver) {
+    solver.train(*this);
+    checkEvolution(true);
   }
 
 private:

@@ -22,7 +22,7 @@ class GradientDescend : public IterativeTrainer, public LineSearcherT {
                 "LineSearcherT should be a form of LineSearcher");
 
 protected:
-  void updateDirection() override { setDirection(-getGradient()); };
+  void updateDirection() override { setDirection(getGradient()); };
   void initDirection() override { updateDirection(); };
 };
 
