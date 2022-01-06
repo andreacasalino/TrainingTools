@@ -10,7 +10,7 @@
 #include <TrainingTools/iterative/direction_optimizer/LineSearcher.h>
 
 namespace train {
-class FixedStep : public virtual ModelAware, public virtual LineSearcher {
+class FixedStep : public virtual LineSearcher {
 public:
   void setOptimizationStep(const double step);
 
