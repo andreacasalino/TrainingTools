@@ -18,20 +18,20 @@ TEST_F(EasyTestFunction4d, QuasiNewtonFixed) {
   trainAndCheck(solver);
 }
 
-TEST_F(MediumTestFunction4d, QuasiNewton) {
-  train::QuasiNewton solver;
-  trainAndCheck(solver);
-}
+// TEST_F(MediumTestFunction4d, QuasiNewton) {
+//   train::QuasiNewton solver;
+//   trainAndCheck(solver);
+// }
 
 TEST_F(EasyTestFunction10d, QuasiNewtonFixed) {
   train::QuasiNewtonFixed solver;
   trainAndCheck(solver);
 }
 
-TEST_F(MediumTestFunction10d, QuasiNewton) {
-  train::QuasiNewton solver;
-  trainAndCheck(solver);
-}
+// TEST_F(MediumTestFunction10d, QuasiNewton) {
+//   train::QuasiNewton solver;
+//   trainAndCheck(solver);
+// }
 
 int main(int argc, char *argv[]) {
   ::testing::InitGoogleTest(&argc, argv);
