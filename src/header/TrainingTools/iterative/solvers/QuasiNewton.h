@@ -26,9 +26,7 @@ class QuasiNewton : public IterativeTrainer,
 protected:
   void updateDirection() override {
     this->updateInvHessianApprox();
-    Vect direction = -this->getGradient();
-    direction = this->getInvHessianApprox() * direction;
-    setDirection(direction);
+    setDirection(-this->getInvHessianApprox() * this->getGradient());
   };
   void initDirection() override {
     Vect gradient = getGradient();

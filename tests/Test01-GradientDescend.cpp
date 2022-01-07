@@ -1,36 +1,93 @@
-#include "Utils.h"
+#include <TestFunctions.h>
+#include <TestSolver.h>
+
+#include <TrainingTools/iterative/direction_optimizer/BisectionSearcher.h>
 #include <TrainingTools/iterative/solvers/GradientDescend.h>
 
-#include <iostream>
+TEST(GradientDescendFixed, easy) {
+  {
+    train::test::EasyTestFunction2d function;
+    train::test::check_train<train::GradientDescendFixed>(function);
+  }
 
-TEST_F(EasyTestFunction2d, GradientDescendFixed) {
-  train::GradientDescendFixed solver;
-  trainAndCheck(solver);
+  {
+    train::test::EasyTestFunction4d function;
+    train::test::check_train<train::GradientDescendFixed>(function);
+  }
 }
 
-TEST_F(MediumTestFunction2d, GradientDescend) {
-  train::GradientDescend solver;
-  trainAndCheck(solver);
+TEST(GradientDescendFixed, medium) {
+  {
+    train::test::MediumTestFunction4d function;
+    train::test::check_train<train::GradientDescendFixed>(
+        function, false, [](train::GradientDescendFixed &solver) {
+          solver.setOptimizationStep(0.5);
+        });
+  }
+
+  {
+    train::test::MediumTestFunction10d function;
+    train::test::check_train<train::GradientDescendFixed>(
+        function, false, [](train::GradientDescendFixed &solver) {
+          solver.setOptimizationStep(0.5);
+        });
+  }
 }
 
-TEST_F(EasyTestFunction4d, GradientDescendFixed) {
-  train::GradientDescendFixed solver;
-  trainAndCheck(solver);
+TEST(GradientDescendBisection, easy) {
+  {
+    train::test::EasyTestFunction2d function;
+    train::test::check_train<train::GradientDescend<train::BisectionSearcher>>(
+        function);
+  }
+
+  {
+    train::test::EasyTestFunction4d function;
+    train::test::check_train<train::GradientDescend<train::BisectionSearcher>>(
+        function);
+  }
 }
 
-TEST_F(MediumTestFunction4d, GradientDescend) {
-  train::GradientDescend solver;
-  trainAndCheck(solver);
+TEST(GradientDescendBisection, medium) {
+  {
+    train::test::MediumTestFunction4d function;
+    train::test::check_train<train::GradientDescend<train::BisectionSearcher>>(
+        function);
+  }
+
+  {
+    train::test::MediumTestFunction10d function;
+    train::test::check_train<train::GradientDescend<train::BisectionSearcher>>(
+        function);
+  }
 }
 
-TEST_F(EasyTestFunction10d, GradientDescendFixed) {
-  train::GradientDescendFixed solver;
-  trainAndCheck(solver);
+TEST(GradientDescendYunda, easy) {
+  {
+    train::test::EasyTestFunction2d function;
+    train::test::check_train<train::GradientDescend<train::YundaSearcher>>(
+        function);
+  }
+
+  {
+    train::test::EasyTestFunction4d function;
+    train::test::check_train<train::GradientDescend<train::YundaSearcher>>(
+        function);
+  }
 }
 
-TEST_F(MediumTestFunction10d, GradientDescend) {
-  train::GradientDescend solver;
-  trainAndCheck(solver);
+TEST(GradientDescendYunda, medium) {
+  {
+    train::test::MediumTestFunction4d function;
+    train::test::check_train<train::GradientDescend<train::YundaSearcher>>(
+        function);
+  }
+
+  {
+    train::test::MediumTestFunction10d function;
+    train::test::check_train<train::GradientDescend<train::YundaSearcher>>(
+        function);
+  }
 }
 
 int main(int argc, char *argv[]) {

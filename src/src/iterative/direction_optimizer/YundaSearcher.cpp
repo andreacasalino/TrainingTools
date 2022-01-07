@@ -13,7 +13,7 @@ namespace {
 constexpr double ALFA_MAX = 1.0;
 constexpr double ALFA_MIN = 0.001;
 constexpr double C2 = 0.9;
-constexpr int ITER_MAX = 10;
+constexpr int ITER_MAX = 50;
 } // namespace
 
 double YundaSearcher::computeC1() const {
@@ -28,18 +28,21 @@ void YundaSearcher::optimize() {
   double mu = 0;
   const auto &direction = getDirection();
   double gdOld = getLastGradient().dot(direction);
+  Vect initialParameters = getParameters();
   while ((j < ITER_MAX) && (alfa >= ALFA_MIN) && (alfa <= ALFA_MAX)) {
-    setParameters(getParameters() + direction * alfa);
+    setParameters(initialParameters + direction * alfa);
     double gd = getGradient().dot(direction);
     // check condition in equation 7
     if (gd > gdOld * c1) {
       alfa = 0.5 * (mu + alfa);
+      ++j;
       continue;
     }
     // check condition in equation 8
     if (gd < gdOld * C2) {
       mu = alfa;
       alfa = 2.0 * mu;
+      ++j;
       continue;
     }
     return;

@@ -7,11 +7,13 @@
 
 #pragma once
 
+#include <TrainingTools/MinimizeOrMaximizeAware.h>
 #include <TrainingTools/ParametersAware.h>
 #include <memory>
 
 namespace train {
-class ModelAware : public ParametersAware {
+class ModelAware : public ParametersAware,
+                   public virtual MinimizeOrMaximizeAware {
 protected:
   void initModel(ParametersAware &model);
   void resetModel();
@@ -21,7 +23,7 @@ protected:
   Vect getParameters() const override { return this->model->getParameters(); };
   void setParameters(const Vect &parameters) override;
 
-  Vect getGradient() const override { return this->model->getGradient(); };
+  Vect getGradient() const override;
 
   const Vect &getLastParameters() const { return *lastParameters; }
   const Vect &getLastGradient() const { return *lastGrad; }

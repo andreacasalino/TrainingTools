@@ -10,14 +10,14 @@
 #include <TrainingTools/iterative/direction_optimizer/LineSearcher.h>
 
 namespace train {
-class FixedStep : public virtual LineSearcher {
+class BisectionSearcher : public virtual LineSearcher {
 public:
-  void setOptimizationStep(const double step);
+  void setBisectionTrials(const std::size_t trials);
 
 protected:
   void optimize() override;
 
 private:
-  double step = 0.1;
+  std::size_t bisection_trials = 10;
 };
 } // namespace train

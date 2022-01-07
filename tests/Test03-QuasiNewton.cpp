@@ -1,36 +1,93 @@
-#include "Utils.h"
+#include <TestFunctions.h>
+#include <TestSolver.h>
+
+#include <TrainingTools/iterative/direction_optimizer/BisectionSearcher.h>
 #include <TrainingTools/iterative/solvers/QuasiNewton.h>
 
-#include <iostream>
+TEST(QuasiNewtonFixed, easy) {
+  {
+    train::test::EasyTestFunction2d function;
+    train::test::check_train<train::QuasiNewtonFixed>(function);
+  }
 
-TEST_F(EasyTestFunction2d, QuasiNewtonFixed) {
-  train::QuasiNewtonFixed solver;
-  trainAndCheck(solver);
+  {
+    train::test::EasyTestFunction4d function;
+    train::test::check_train<train::QuasiNewtonFixed>(function);
+  }
 }
 
-TEST_F(MediumTestFunction2d, QuasiNewton) {
-  train::QuasiNewton solver;
-  trainAndCheck(solver);
+TEST(QuasiNewtonFixed, medium) {
+  {
+    train::test::MediumTestFunction4d function;
+    train::test::check_train<train::QuasiNewtonFixed>(
+        function, false, [](train::QuasiNewtonFixed &solver) {
+          solver.setOptimizationStep(0.5);
+        });
+  }
+
+  {
+    train::test::MediumTestFunction10d function;
+    train::test::check_train<train::QuasiNewtonFixed>(
+        function, false, [](train::QuasiNewtonFixed &solver) {
+          solver.setOptimizationStep(0.5);
+        });
+  }
 }
 
-TEST_F(EasyTestFunction4d, QuasiNewtonFixed) {
-  train::QuasiNewtonFixed solver;
-  trainAndCheck(solver);
+TEST(QuasiNewtonBisection, easy) {
+  {
+    train::test::EasyTestFunction2d function;
+    train::test::check_train<train::QuasiNewton<train::BisectionSearcher>>(
+        function);
+  }
+
+  {
+    train::test::EasyTestFunction4d function;
+    train::test::check_train<train::QuasiNewton<train::BisectionSearcher>>(
+        function);
+  }
 }
 
-TEST_F(MediumTestFunction4d, QuasiNewton) {
-  train::QuasiNewton solver;
-  trainAndCheck(solver);
+TEST(QuasiNewtonBisection, medium) {
+  {
+    train::test::MediumTestFunction4d function;
+    train::test::check_train<train::QuasiNewton<train::BisectionSearcher>>(
+        function);
+  }
+
+  {
+    train::test::MediumTestFunction10d function;
+    train::test::check_train<train::QuasiNewton<train::BisectionSearcher>>(
+        function);
+  }
 }
 
-TEST_F(EasyTestFunction10d, QuasiNewtonFixed) {
-  train::QuasiNewtonFixed solver;
-  trainAndCheck(solver);
+TEST(QuasiNewtonYunda, easy) {
+  {
+    train::test::EasyTestFunction2d function;
+    train::test::check_train<train::QuasiNewton<train::YundaSearcher>>(
+        function);
+  }
+
+  {
+    train::test::EasyTestFunction4d function;
+    train::test::check_train<train::QuasiNewton<train::YundaSearcher>>(
+        function);
+  }
 }
 
-TEST_F(MediumTestFunction10d, QuasiNewton) {
-  train::QuasiNewton solver;
-  trainAndCheck(solver);
+TEST(QuasiNewtonYunda, medium) {
+  {
+    train::test::MediumTestFunction4d function;
+    train::test::check_train<train::QuasiNewton<train::YundaSearcher>>(
+        function);
+  }
+
+  {
+    train::test::MediumTestFunction10d function;
+    train::test::check_train<train::QuasiNewton<train::YundaSearcher>>(
+        function);
+  }
 }
 
 int main(int argc, char *argv[]) {
