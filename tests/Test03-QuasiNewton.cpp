@@ -1,36 +1,55 @@
-#include "Utils.h"
+#include <TestFunctions.h>
+#include <TestSolver.h>
+
+#include <TrainingTools/iterative/direction_optimizer/BisectionSearcher.h>
 #include <TrainingTools/iterative/solvers/QuasiNewton.h>
 
-#include <iostream>
-
-TEST_F(EasyTestFunction2d, QuasiNewtonFixed) {
-  train::QuasiNewtonFixed solver;
-  trainAndCheck(solver);
+TEST(QuasiNewtonFixed, EasyTestFunction2d) {
+  train::test::EasyTestFunction2d function;
+  train::test::check_train<train::QuasiNewtonFixed>(function);
 }
 
-TEST_F(MediumTestFunction2d, QuasiNewton) {
-  train::QuasiNewton solver;
-  trainAndCheck(solver);
+TEST(QuasiNewtonFixed, EasyTestFunction4d) {
+  train::test::EasyTestFunction4d function;
+  train::test::check_train<train::QuasiNewtonFixed>(function);
 }
 
-TEST_F(EasyTestFunction4d, QuasiNewtonFixed) {
-  train::QuasiNewtonFixed solver;
-  trainAndCheck(solver);
+TEST(QuasiNewtonFixed, EasyTestFunction10d) {
+  train::test::EasyTestFunction10d function;
+  train::test::check_train<train::QuasiNewtonFixed>(function);
 }
 
-TEST_F(MediumTestFunction4d, QuasiNewton) {
-  train::QuasiNewton solver;
-  trainAndCheck(solver);
+TEST(QuasiNewtonBisection, EasyTestFunction2d) {
+  train::test::EasyTestFunction2d function;
+  train::test::check_train<train::QuasiNewton<train::BisectionSearcher>>(
+      function);
 }
 
-TEST_F(EasyTestFunction10d, QuasiNewtonFixed) {
-  train::QuasiNewtonFixed solver;
-  trainAndCheck(solver);
+TEST(QuasiNewtonBisection, EasyTestFunction4d) {
+  train::test::EasyTestFunction4d function;
+  train::test::check_train<train::QuasiNewton<train::BisectionSearcher>>(
+      function);
 }
 
-TEST_F(MediumTestFunction10d, QuasiNewton) {
-  train::QuasiNewton solver;
-  trainAndCheck(solver);
+TEST(QuasiNewtonBisection, EasyTestFunction10d) {
+  train::test::EasyTestFunction10d function;
+  train::test::check_train<train::QuasiNewton<train::BisectionSearcher>>(
+      function);
+}
+
+TEST(QuasiNewtonYunda, EasyTestFunction2d) {
+  train::test::EasyTestFunction2d function;
+  train::test::check_train<train::QuasiNewton<train::YundaSearcher>>(function);
+}
+
+TEST(QuasiNewtonYunda, EasyTestFunction4d) {
+  train::test::EasyTestFunction4d function;
+  train::test::check_train<train::QuasiNewton<train::YundaSearcher>>(function);
+}
+
+TEST(QuasiNewtonYunda, EasyTestFunction10d) {
+  train::test::EasyTestFunction10d function;
+  train::test::check_train<train::QuasiNewton<train::YundaSearcher>>(function);
 }
 
 int main(int argc, char *argv[]) {

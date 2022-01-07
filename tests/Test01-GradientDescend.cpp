@@ -29,7 +29,6 @@ TEST(GradientDescendBisection, EasyTestFunction4d) {
   train::test::EasyTestFunction4d function;
   train::test::check_train<train::GradientDescend<train::BisectionSearcher>>(
       function);
-  ;
 }
 
 TEST(GradientDescendBisection, EasyTestFunction10d) {
@@ -48,7 +47,6 @@ TEST(GradientDescendYunda, EasyTestFunction4d) {
   train::test::EasyTestFunction4d function;
   train::test::check_train<train::GradientDescend<train::YundaSearcher>>(
       function);
-  ;
 }
 
 TEST(GradientDescendYunda, EasyTestFunction10d) {

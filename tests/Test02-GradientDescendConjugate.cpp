@@ -1,53 +1,58 @@
-#include "Utils.h"
+#include <TestFunctions.h>
+#include <TestSolver.h>
+
+#include <TrainingTools/iterative/direction_optimizer/BisectionSearcher.h>
 #include <TrainingTools/iterative/solvers/GradientDescendConjugate.h>
 
-#include <iostream>
-
-TEST_F(EasyTestFunction2d, GradientDescendConjugateFixed) {
-  train::GradientDescendConjugateFixed solver;
-  trainAndCheck(solver);
+TEST(GradientDescendConjugateFixed, EasyTestFunction2d) {
+  train::test::EasyTestFunction2d function;
+  train::test::check_train<train::GradientDescendConjugateFixed>(function);
 }
 
-TEST_F(MediumTestFunction2d, GradientDescendConjugate) {
-  train::GradientDescendConjugate solver;
-  trainAndCheck(solver);
+TEST(GradientDescendConjugateFixed, EasyTestFunction4d) {
+  train::test::EasyTestFunction4d function;
+  train::test::check_train<train::GradientDescendConjugateFixed>(function);
 }
 
-TEST_F(EasyTestFunction4d, GradientDescendConjugateFixed) {
-  train::GradientDescendConjugateFixed solver;
-  trainAndCheck(solver);
+TEST(GradientDescendConjugateFixed, EasyTestFunction10d) {
+  train::test::EasyTestFunction10d function;
+  train::test::check_train<train::GradientDescendConjugateFixed>(function);
 }
 
-TEST_F(MediumTestFunction4d, GradientDescendConjugate) {
-  train::GradientDescendConjugate solver;
-  trainAndCheck(solver);
+TEST(GradientDescendConjugateBisection, EasyTestFunction2d) {
+  train::test::EasyTestFunction2d function;
+  train::test::check_train<
+      train::GradientDescendConjugate<train::BisectionSearcher>>(function);
 }
 
-TEST_F(EasyTestFunction10d, GradientDescendConjugateFixed) {
-  train::GradientDescendConjugateFixed solver;
-  trainAndCheck(solver);
+TEST(GradientDescendConjugateBisection, EasyTestFunction4d) {
+  train::test::EasyTestFunction4d function;
+  train::test::check_train<
+      train::GradientDescendConjugate<train::BisectionSearcher>>(function);
 }
 
-TEST_F(MediumTestFunction10d, GradientDescendConjugate) {
-  train::GradientDescendConjugate solver;
-  trainAndCheck(solver);
+TEST(GradientDescendConjugateBisection, EasyTestFunction10d) {
+  train::test::EasyTestFunction10d function;
+  train::test::check_train<
+      train::GradientDescendConjugate<train::BisectionSearcher>>(function);
 }
 
-TEST_F(MediumTestFunction10d, GradientDescendConjugate_PolakRibiere) {
-  train::GradientDescendConjugate<train::YundaSearcher, train::PolakRibiere>
-      solver;
-  trainAndCheck(solver);
+TEST(GradientDescendConjugateYunda, EasyTestFunction2d) {
+  train::test::EasyTestFunction2d function;
+  train::test::check_train<
+      train::GradientDescendConjugate<train::YundaSearcher>>(function);
 }
 
-TEST_F(MediumTestFunction10d, GradientDescendConjugate_HestenesStiefel) {
-  train::GradientDescendConjugate<train::YundaSearcher, train::HestenesStiefel>
-      solver;
-  trainAndCheck(solver);
+TEST(GradientDescendConjugateYunda, EasyTestFunction4d) {
+  train::test::EasyTestFunction4d function;
+  train::test::check_train<
+      train::GradientDescendConjugate<train::YundaSearcher>>(function);
 }
 
-TEST_F(MediumTestFunction10d, GradientDescendConjugate_DaiYuan) {
-  train::GradientDescendConjugate<train::YundaSearcher, train::DaiYuan> solver;
-  trainAndCheck(solver);
+TEST(GradientDescendConjugateYunda, EasyTestFunction10d) {
+  train::test::EasyTestFunction10d function;
+  train::test::check_train<
+      train::GradientDescendConjugate<train::YundaSearcher>>(function);
 }
 
 int main(int argc, char *argv[]) {
