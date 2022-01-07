@@ -9,15 +9,13 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(googletest)
 
-function(MakeTest NAME)
-  add_executable(${NAME}  
-  ${NAME}.cpp
-  Utils.h)
+add_subdirectory(src)
 
-  target_link_libraries(${NAME}
-  PUBLIC
-      gtest
-      TrainingTools
+function(MakeTest NAME)
+  add_executable(${NAME} ${NAME}.cpp)
+
+  target_link_libraries(${NAME} PUBLIC
+    TestUtils
   )
 
   install(TARGETS ${NAME})
