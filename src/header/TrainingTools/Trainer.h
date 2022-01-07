@@ -7,11 +7,12 @@
 
 #pragma once
 
+#include <TrainingTools/MinimizeOrMaximizeAware.h>
 #include <TrainingTools/ParametersAware.h>
 #include <mutex>
 
 namespace train {
-class Trainer {
+class Trainer : public virtual MinimizeOrMaximizeAware {
 public:
   virtual ~Trainer() = default;
 

@@ -17,7 +17,14 @@ void ModelAware::resetModel() { this->model = nullptr; }
 
 void ModelAware::setParameters(const Vect &parameters) {
   lastParameters = std::make_unique<Vect>(this->model->getParameters());
-  lastGrad = std::make_unique<Vect>(this->model->getGradient());
+  lastGrad = std::make_unique<Vect>(this->getGradient());
   this->model->setParameters(parameters);
+};
+
+Vect ModelAware::getGradient() const {
+  if (isMinimizing()) {
+    return this->model->getGradient();
+  }
+  return -this->model->getGradient();
 };
 } // namespace train
