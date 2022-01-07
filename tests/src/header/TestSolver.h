@@ -80,11 +80,13 @@ void check_train(
             << std::endl;
 
   std::cout << "<---- Minimization ---->" << std::endl;
+  function.setParameters(initial_point);
   function.minimize();
   solver.train(function);
   check_evolution(function, solver.getEvolution(), strict);
 
   std::cout << "<---- Maximization ---->" << std::endl;
+  function.setParameters(initial_point);
   function.maximize();
   solver.train(function);
   check_evolution(function, solver.getEvolution(), strict);

@@ -1,36 +1,60 @@
+#include <TestFunctions.h>
 #include <TestSolver.h>
+
+#include <TrainingTools/iterative/direction_optimizer/BisectionSearcher.h>
 #include <TrainingTools/iterative/solvers/GradientDescend.h>
 
-#include <iostream>
-
-TEST_F(EasyTestFunction2d, GradientDescendFixed) {
-  train::GradientDescendFixed solver;
-  trainAndCheckStrict(solver);
+TEST(GradientDescendFixed, EasyTestFunction2d) {
+  train::test::EasyTestFunction2d function;
+  train::test::check_train<train::GradientDescendFixed>(function);
 }
 
-TEST_F(MediumTestFunction2d, GradientDescend) {
-  train::GradientDescend solver;
-  trainAndCheck(solver);
+TEST(GradientDescendFixed, EasyTestFunction4d) {
+  train::test::EasyTestFunction4d function;
+  train::test::check_train<train::GradientDescendFixed>(function);
 }
 
-TEST_F(EasyTestFunction4d, GradientDescendFixed) {
-  train::GradientDescendFixed solver;
-  trainAndCheckStrict(solver);
+TEST(GradientDescendFixed, EasyTestFunction10d) {
+  train::test::EasyTestFunction10d function;
+  train::test::check_train<train::GradientDescendFixed>(function);
 }
 
-TEST_F(MediumTestFunction4d, GradientDescend) {
-  train::GradientDescend solver;
-  trainAndCheck(solver);
+TEST(GradientDescendBisection, EasyTestFunction2d) {
+  train::test::EasyTestFunction2d function;
+  train::test::check_train<train::GradientDescend<train::BisectionSearcher>>(
+      function);
 }
 
-TEST_F(EasyTestFunction10d, GradientDescendFixed) {
-  train::GradientDescendFixed solver;
-  trainAndCheckStrict(solver);
+TEST(GradientDescendBisection, EasyTestFunction4d) {
+  train::test::EasyTestFunction4d function;
+  train::test::check_train<train::GradientDescend<train::BisectionSearcher>>(
+      function);
+  ;
 }
 
-TEST_F(MediumTestFunction10d, GradientDescend) {
-  train::GradientDescend solver;
-  trainAndCheck(solver);
+TEST(GradientDescendBisection, EasyTestFunction10d) {
+  train::test::EasyTestFunction10d function;
+  train::test::check_train<train::GradientDescend<train::BisectionSearcher>>(
+      function);
+}
+
+TEST(GradientDescendYunda, EasyTestFunction2d) {
+  train::test::EasyTestFunction2d function;
+  train::test::check_train<train::GradientDescend<train::YundaSearcher>>(
+      function);
+}
+
+TEST(GradientDescendYunda, EasyTestFunction4d) {
+  train::test::EasyTestFunction4d function;
+  train::test::check_train<train::GradientDescend<train::YundaSearcher>>(
+      function);
+  ;
+}
+
+TEST(GradientDescendYunda, EasyTestFunction10d) {
+  train::test::EasyTestFunction10d function;
+  train::test::check_train<train::GradientDescend<train::YundaSearcher>>(
+      function);
 }
 
 int main(int argc, char *argv[]) {
