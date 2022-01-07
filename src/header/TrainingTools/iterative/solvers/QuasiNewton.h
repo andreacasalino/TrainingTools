@@ -31,7 +31,7 @@ protected:
   void initDirection() override {
     Vect gradient = getGradient();
     this->initInvHessianApprox(gradient.size());
-    setDirection(gradient);
+    setDirection(-gradient);
   };
 };
 
