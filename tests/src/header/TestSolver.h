@@ -42,8 +42,9 @@ Vect get_initial_point(const std::size_t space_size) {
   return initial_point;
 }
 
-void check_evolution(TestFunction &function, const std::vector<Vect> &evolution,
+void check_evolution(TestFunction &function, std::vector<Vect> evolution,
                      bool strict) {
+  evolution.push_back(function.getParameters());
   auto it_ev = evolution.begin();
   auto it_prev = it_ev;
   ++it_ev;
