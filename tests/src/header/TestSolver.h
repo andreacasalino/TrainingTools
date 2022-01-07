@@ -63,7 +63,7 @@ void check_evolution(TestFunction &function, const std::vector<Vect> &evolution,
   }
   std::cout << std::endl;
   EXPECT_GE(evolution.front().norm(), evolution.back().norm());
-  EXPECT_LE(evolution.back().norm(), 0.25);
+  EXPECT_LE(evolution.back().norm(), 0.1);
 }
 
 template <typename SolverT>
@@ -88,6 +88,7 @@ void check_train(
   std::cout << "<---- Maximization ---->" << std::endl;
   function.setParameters(initial_point);
   function.maximize();
+  solver.maximize();
   solver.train(function);
   check_evolution(function, solver.getEvolution(), strict);
 }
