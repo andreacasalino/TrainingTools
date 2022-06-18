@@ -23,7 +23,5 @@ set(PROJECT_SHORTNAME TrainingTools)
 
 MakeLibrary(${PROJECT_SHORTNAME} header)
 
-target_link_libraries(${PROJECT_SHORTNAME} PUBLIC
-${EigenName_To_Link}
-)
+LINK_EIGEN(${PROJECT_SHORTNAME} PUBLIC)
 
